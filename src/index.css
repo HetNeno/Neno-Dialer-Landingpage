@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #c2652a;
+  --color-primary-container: #e08850;
+  --color-primary-fixed: #fbe8d8;
+  --color-primary-fixed-dim: #f0a878;
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #fbe8d8;
+  
+  --color-background: #faf5ee;
+  --color-surface: #faf5ee;
+  --color-surface-dim: #dcd6cc;
+  --color-surface-bright: #faf5ee;
+  --color-surface-low: #f6f0e8;
+  --color-surface-container: #f2ece4;
+  --color-surface-container-low: #f6f0e8;
+  --color-surface-container-high: #ece6dc;
+  --color-surface-container-highest: #e6e0d6;
+  --color-surface-container-lowest: #ffffff;
+  
+  --color-on-surface: #3a302a;
+  --color-on-surface-variant: #605850;
+  
+  --color-secondary: #78706a;
+  --color-secondary-container: #eae2da;
+  --color-on-secondary-container: #605850;
+  --color-secondary-fixed: #eae2da;
+  --color-on-secondary-fixed: #2a2420;
+  --color-secondary-fixed-dim: #cec6be;
+  
+  --color-tertiary: #8c3c3c;
+  --color-tertiary-container: #d47070;
+  --color-on-tertiary: #ffffff;
+  --color-on-tertiary-container: #3a2020;
+  
+  --color-outline: #9a9088;
+  --color-outline-variant: #d8d0c8;
+  
+  --font-headline: 'EB Garamond', serif;
+  --font-display: 'EB Garamond', serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-label: 'Manrope', sans-serif;
+}
+
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #faf5ee;
+    color: #3a302a;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #faf5ee;
+}
+::-webkit-scrollbar-thumb {
+  background: #d8d0c8;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c2652a;
+}
