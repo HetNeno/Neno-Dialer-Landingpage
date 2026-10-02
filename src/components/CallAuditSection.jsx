@@ -28,22 +28,19 @@ export default function CallAuditSection() {
         </div>
 
         {/* Call Audit Scorecard UI Mockup */}
-        <div className="bg-white rounded-2xl shadow-md border border-[#d8d0c8] overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-sm border border-[#d8d0c8]/80 overflow-hidden">
           
           {/* Scorecard Header */}
-          <div className="bg-[#ece6dc] p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-[#d8d0c8]">
+          <div className="bg-[#ece6dc] p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-[#d8d0c8]/60">
             <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="px-2.5 py-0.5 rounded bg-[#c2652a] text-white text-xs font-mono font-bold">AUDIT #ND-84920</span>
-                <h3 className="text-base font-bold text-[#3a302a]">Call Audit Evaluation Scorecard</h3>
-              </div>
+              <h3 className="text-base font-bold text-[#3a302a]">Call Quality Audit Evaluation</h3>
               <p className="text-xs text-[#605850]">
-                Agent: <strong class="text-[#3a302a]">Priya Patel</strong> • Campaign: Inbound SaaS Tech • Duration: 06:14 • Date: Today, 11:24 AM
+                Representative: <strong className="text-[#3a302a]">Priya Patel</strong> • Inbound Discovery Call • Duration: 06:14
               </p>
             </div>
 
             {/* Score Badge */}
-            <div className="flex items-center gap-4 bg-white px-5 py-3 rounded-xl shadow-xs border border-[#d8d0c8]">
+            <div className="flex items-center gap-4 bg-white px-5 py-3 rounded-xl border border-[#d8d0c8]/60">
               <div>
                 <span className="text-[10px] uppercase font-bold text-[#605850] block tracking-wider font-label">Overall QA Score</span>
                 <span className="text-3xl font-headline font-bold text-[#c2652a] leading-none">
@@ -66,7 +63,7 @@ export default function CallAuditSection() {
               </h4>
 
               {criteria.map((item, index) => (
-                <div key={index} className="p-3.5 rounded-xl bg-[#f6f0e8] flex items-center justify-between border border-[#d8d0c8]/60">
+                <div key={index} className="p-3.5 rounded-xl bg-[#f6f0e8] flex items-center justify-between border border-[#d8d0c8]/50">
                   <div className="flex items-center gap-3">
                     {item.passed ? (
                       <CheckCircle2 className="w-5 h-5 text-[#c2652a] shrink-0" />
@@ -88,11 +85,11 @@ export default function CallAuditSection() {
             </div>
 
             {/* Auditor Coaching Summary (5 cols) */}
-            <div className="lg:col-span-5 bg-[#f6f0e8] p-6 rounded-xl flex flex-col justify-between border border-[#d8d0c8]/60">
+            <div className="lg:col-span-5 bg-[#f6f0e8] p-6 rounded-xl flex flex-col justify-between border border-[#d8d0c8]/50">
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="text-xs uppercase font-bold tracking-wider text-[#3a302a] font-label">Auditor Coaching Summary</h4>
-                  <span className="text-[11px] text-[#605850] font-mono">Auditor: QA Lead #08</span>
+                  <span className="text-[11px] text-[#605850]">QA Lead Review</span>
                 </div>
 
                 <div className="p-3.5 bg-white rounded-lg text-xs text-[#3a302a] leading-relaxed shadow-xs border border-[#d8d0c8] mb-4">

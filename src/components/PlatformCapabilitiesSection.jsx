@@ -38,7 +38,7 @@ export default function PlatformCapabilitiesSection() {
                 Empower your contact center with 24/7 conversational voice bots powered by Automatic Speech Recognition (ASR) and Natural Language Understanding (NLU). Resolve repetitive inquiries or qualify leads before human transfer.
               </p>
 
-              <div className="space-y-3 p-4 bg-[#f6f0e8] rounded-xl font-mono text-xs mb-6 border border-[#d8d0c8]/60">
+              <div className="space-y-3 p-4 bg-[#f6f0e8] rounded-xl text-xs mb-6 border border-[#d8d0c8]/50">
                 <div className="flex items-center gap-2">
                   <span className="text-[#c2652a] font-bold">1. Listen:</span>
                   <span className="text-[#3a302a]">Multi-lingual speech capture in real-time</span>
@@ -53,16 +53,16 @@ export default function PlatformCapabilitiesSection() {
                 </div>
               </div>
             </div>
-            <div className="text-xs text-[#605850] font-mono">Zero Code Bot Flow Builder Included</div>
+            <div className="text-xs text-[#605850]">Conversational AI Integration</div>
           </div>
 
           {/* Card 2: Voice Broadcasting */}
-          <div className="bg-white p-8 rounded-2xl shadow-xs border border-[#d8d0c8] flex flex-col justify-between">
+          <div className="bg-white p-8 rounded-2xl border border-[#d8d0c8]/60 flex flex-col justify-between">
             <div>
               <div className="w-12 h-12 rounded-xl bg-[#eae2da] flex items-center justify-center text-[#2a2420] mb-6">
                 <Radio className="w-6 h-6" />
               </div>
-              <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#78706a] mb-1">
+              <div className="text-[11px] font-bold uppercase tracking-wider text-[#78706a] mb-1 font-label">
                 Mass Notifications
               </div>
               <h3 className="font-headline text-2xl font-bold text-[#3a302a] mb-3">
@@ -87,16 +87,16 @@ export default function PlatformCapabilitiesSection() {
                 </div>
               </div>
             </div>
-            <div className="text-xs text-[#605850] font-mono">10,000+ Concurrent Channels Available</div>
+            <div className="text-xs text-[#605850]">High Capacity Channels</div>
           </div>
 
           {/* Card 3: Multi-Company Single-Login */}
-          <div className="bg-white p-8 rounded-2xl shadow-xs border border-[#d8d0c8] flex flex-col justify-between">
+          <div className="bg-white p-8 rounded-2xl border border-[#d8d0c8]/60 flex flex-col justify-between">
             <div>
               <div className="w-12 h-12 rounded-xl bg-[#ece6dc] flex items-center justify-center text-[#c2652a] mb-6">
                 <Building2 className="w-6 h-6" />
               </div>
-              <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#605850] mb-1">
+              <div className="text-[11px] font-bold uppercase tracking-wider text-[#605850] mb-1 font-label">
                 Multi-Tenant Architecture
               </div>
               <h3 className="font-headline text-2xl font-bold text-[#3a302a] mb-3">
@@ -121,16 +121,16 @@ export default function PlatformCapabilitiesSection() {
                 </div>
               </div>
             </div>
-            <div className="text-xs text-[#605850] font-mono">Unlimited Subsidiary Workspaces</div>
+            <div className="text-xs text-[#605850]">Multi-Entity Support</div>
           </div>
 
           {/* Card 4: Remote-Ready WebRTC Setup */}
-          <div className="bg-white p-8 rounded-2xl shadow-xs border border-[#d8d0c8] flex flex-col justify-between">
+          <div className="bg-white p-8 rounded-2xl border border-[#d8d0c8]/60 flex flex-col justify-between">
             <div>
               <div className="w-12 h-12 rounded-xl bg-[#c2652a]/10 flex items-center justify-center text-[#c2652a] mb-6">
                 <Laptop className="w-6 h-6" />
               </div>
-              <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#c2652a] mb-1">
+              <div className="text-[11px] font-bold uppercase tracking-wider text-[#c2652a] mb-1 font-label">
                 Zero Hardware Overhead
               </div>
               <h3 className="font-headline text-2xl font-bold text-[#3a302a] mb-3">
@@ -155,7 +155,7 @@ export default function PlatformCapabilitiesSection() {
                 </div>
               </div>
             </div>
-            <div className="text-xs text-[#605850] font-mono">Enterprise TLS 1.3 &amp; SRTP Encryption</div>
+            <div className="text-xs text-[#605850]">TLS 1.3 &amp; SRTP Security</div>
           </div>
 
         </div>

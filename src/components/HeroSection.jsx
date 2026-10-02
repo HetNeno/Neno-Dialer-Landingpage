@@ -104,32 +104,31 @@ export default function HeroSection({ onOpenDemo }) {
         <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden border border-[#d8d0c8]/80">
           
           {/* Title Bar */}
-          <div className="bg-[#ece6dc] px-5 py-3 flex items-center justify-between border-b border-[#d8d0c8]/80">
+          <div className="bg-[#ece6dc] px-5 py-3 flex items-center justify-between border-b border-[#d8d0c8]/60">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-[#d47070]/80"></div>
               <div className="w-3 h-3 rounded-full bg-[#eae2da]"></div>
               <div className="w-3 h-3 rounded-full bg-[#f0a878]"></div>
               <span className="ml-3 text-xs font-medium text-[#605850] flex items-center gap-1.5">
                 <Headphones className="w-3.5 h-3.5 text-[#c2652a]" />
-                Neno Dialer Active Workspace • Session #4928-EU
+                Neno Dialer Workspace
               </span>
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white text-[11px] font-semibold text-[#c2652a] shadow-xs">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white text-[11px] font-semibold text-[#c2652a]">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#c2652a] animate-ping"></span> Live WebRTC Gateway
               </span>
-              <span className="text-xs text-[#605850] font-mono hidden sm:inline">SIP: Connected (14ms)</span>
             </div>
           </div>
 
           {/* 3-Column Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[560px]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[540px]">
             
             {/* Column 1: Call Activity & Live Queue (Left Panel) */}
             <div className="lg:col-span-3 bg-[#f6f0e8] p-4 flex flex-col justify-between border-r border-[#d8d0c8]/60">
               <div>
-                <div className="flex items-center justify-between mb-3 pb-2 bg-[#f2ece4] px-3 py-2 rounded-lg">
+                <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#d8d0c8]/50">
                   <div>
                     <h3 className="text-xs uppercase font-bold tracking-wider text-[#3a302a]">Queue Stream</h3>
                     <p className="text-[11px] text-[#605850]">Live ACD Routing</p>
@@ -139,67 +138,67 @@ export default function HeroSection({ onOpenDemo }) {
 
                 {/* Queue Summary KPIs */}
                 <div className="grid grid-cols-2 gap-2 mb-4">
-                  <div className="bg-white p-2 rounded-lg shadow-xs">
+                  <div className="bg-white p-2 rounded-lg">
                     <div className="text-[10px] text-[#605850] font-semibold">Avg Wait Time</div>
-                    <div className="text-sm font-bold text-[#3a302a] font-mono">00:18s</div>
+                    <div className="text-sm font-bold text-[#3a302a]">00:18s</div>
                   </div>
-                  <div className="bg-white p-2 rounded-lg shadow-xs">
+                  <div className="bg-white p-2 rounded-lg">
                     <div className="text-[10px] text-[#605850] font-semibold">Queue SLA</div>
-                    <div className="text-sm font-bold text-[#c2652a] font-mono">98.4%</div>
+                    <div className="text-sm font-bold text-[#c2652a]">98.4%</div>
                   </div>
                 </div>
 
                 {/* Queue Items */}
                 <div className="space-y-2">
-                  <div className="p-2.5 rounded-xl bg-white shadow-xs border border-[#c2652a]/30 flex flex-col gap-1.5">
+                  <div className="p-2.5 rounded-xl bg-white border border-[#c2652a]/30 flex flex-col gap-1.5">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-semibold text-[#3a302a] truncate">+1 (415) 890-4412</span>
                       <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#c2652a]/10 text-[#c2652a] uppercase">Connected</span>
                     </div>
                     <div className="flex items-center justify-between text-[11px] text-[#605850]">
-                      <span className="flex items-center gap-1"><PhoneIncoming className="w-3 h-3 text-[#c2652a]" /> Inbound Tech Queue</span>
-                      <span className="font-mono text-[#3a302a] font-semibold">{formatTime(callDuration)}</span>
+                      <span className="flex items-center gap-1"><PhoneIncoming className="w-3 h-3 text-[#c2652a]" /> Inbound Support</span>
+                      <span className="text-[#3a302a] font-semibold">{formatTime(callDuration)}</span>
                     </div>
                   </div>
 
-                  <div className="p-2.5 rounded-xl bg-white/80 shadow-xs flex flex-col gap-1.5">
+                  <div className="p-2.5 rounded-xl bg-white/80 flex flex-col gap-1.5">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-semibold text-[#3a302a] truncate">+44 20 7946 0918</span>
-                      <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#eae2da] text-[#605850] uppercase">Queued (1st)</span>
+                      <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#eae2da] text-[#605850] uppercase">Queued</span>
                     </div>
                     <div className="flex items-center justify-between text-[11px] text-[#605850]">
-                      <span className="flex items-center gap-1"><Headphones className="w-3 h-3 text-[#78706a]" /> Priority Tier 1</span>
-                      <span className="font-mono text-[#c2652a] font-bold">00:24</span>
+                      <span className="flex items-center gap-1"><Headphones className="w-3 h-3 text-[#78706a]" /> Priority Queue</span>
+                      <span className="text-[#c2652a] font-bold">00:24</span>
                     </div>
                   </div>
 
-                  <div className="p-2.5 rounded-xl bg-white/80 shadow-xs flex flex-col gap-1.5">
+                  <div className="p-2.5 rounded-xl bg-white/80 flex flex-col gap-1.5">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-semibold text-[#3a302a] truncate">+1 (212) 555-0198</span>
                       <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#eae2da] text-[#2a2420] uppercase">Predictive</span>
                     </div>
                     <div className="flex items-center justify-between text-[11px] text-[#605850]">
                       <span className="flex items-center gap-1"><PhoneOutgoing className="w-3 h-3 text-[#78706a]" /> Outbound Campaign</span>
-                      <span className="font-mono text-[#3a302a]">01:42</span>
+                      <span className="text-[#3a302a]">01:42</span>
                     </div>
                   </div>
 
-                  <div className="p-2.5 rounded-xl bg-white/80 shadow-xs flex flex-col gap-1.5">
+                  <div className="p-2.5 rounded-xl bg-white/80 flex flex-col gap-1.5">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-semibold text-[#3a302a] truncate">+91 98201 54321</span>
                       <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#f2ece4] text-[#605850] uppercase">Wrap-Up</span>
                     </div>
                     <div className="flex items-center justify-between text-[11px] text-[#605850]">
-                      <span className="flex items-center gap-1"><FileText className="w-3 h-3 text-[#78706a]" /> Post-Call Tagging</span>
-                      <span className="font-mono text-[#605850]">00:14</span>
+                      <span className="flex items-center gap-1"><FileText className="w-3 h-3 text-[#78706a]" /> Tagging</span>
+                      <span className="text-[#605850]">00:14</span>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div className="mt-4 pt-3 border-t border-[#d8d0c8]/60 flex items-center justify-between text-[11px] text-[#605850]">
-                <span>VoIP Gateway: <strong className="text-[#3a302a]">AWS-US-East</strong></span>
-                <span className="text-[#c2652a] font-semibold">0 drops today</span>
+                <span>Routing: <strong className="text-[#3a302a]">Active</strong></span>
+                <span className="text-[#c2652a] font-semibold">Zero Call Drops</span>
               </div>
             </div>
 
@@ -378,15 +377,15 @@ export default function HeroSection({ onOpenDemo }) {
 
               {/* Status Footer */}
               <div className="mt-4 pt-3 border-t border-[#d8d0c8]/60 flex items-center justify-between text-xs text-[#605850]">
-                <span className="flex items-center gap-1"><Sparkles className="w-3.5 h-3.5 text-[#c2652a]" /> Salesforce &amp; Neno CRM Synced</span>
-                <span className="font-mono text-[11px]">Rep: Marcus Vance (ID #409)</span>
+                <span className="flex items-center gap-1"><Sparkles className="w-3.5 h-3.5 text-[#c2652a]" /> CRM Connected</span>
+                <span className="text-[#3a302a] font-medium text-[11px]">Representative: Marcus Vance</span>
               </div>
             </div>
 
             {/* Column 3: Supervisor Fleet & Agent Oversight (Right Panel) */}
             <div className="lg:col-span-3 bg-[#f6f0e8] p-4 flex flex-col justify-between border-l border-[#d8d0c8]/60">
               <div>
-                <div className="flex items-center justify-between mb-3 pb-2 bg-[#f2ece4] px-3 py-2 rounded-lg">
+                <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#d8d0c8]/50">
                   <div>
                     <h3 className="text-xs uppercase font-bold tracking-wider text-[#3a302a]">Fleet Oversight</h3>
                     <p className="text-[11px] text-[#605850]">33 Active Telecallers</p>
@@ -396,15 +395,15 @@ export default function HeroSection({ onOpenDemo }) {
 
                 {/* Roster Stat Chips */}
                 <div className="grid grid-cols-3 gap-1.5 text-center mb-4">
-                  <div className="bg-white p-1.5 rounded-lg shadow-xs">
+                  <div className="bg-white p-1.5 rounded-lg">
                     <span className="text-[10px] text-[#605850] block font-medium">Ready</span>
                     <span className="text-xs font-bold text-[#c2652a]">18</span>
                   </div>
-                  <div className="bg-white p-1.5 rounded-lg shadow-xs">
+                  <div className="bg-white p-1.5 rounded-lg">
                     <span className="text-[10px] text-[#605850] block font-medium">On Call</span>
                     <span className="text-xs font-bold text-[#3a302a]">12</span>
                   </div>
-                  <div className="bg-white p-1.5 rounded-lg shadow-xs">
+                  <div className="bg-white p-1.5 rounded-lg">
                     <span className="text-[10px] text-[#605850] block font-medium">Wrap-up</span>
                     <span className="text-xs font-bold text-[#78706a]">3</span>
                   </div>
@@ -413,18 +412,18 @@ export default function HeroSection({ onOpenDemo }) {
                 {/* Supervisor Live Agent Cards */}
                 <div className="space-y-2">
                   {/* Agent 1 */}
-                  <div className="p-2.5 rounded-xl bg-white shadow-xs space-y-2 border border-[#d8d0c8]/60">
+                  <div className="p-2.5 rounded-xl bg-white space-y-2 border border-[#d8d0c8]/60">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <div className="w-6 h-6 rounded-full bg-[#c2652a]/20 text-[#c2652a] text-[10px] font-bold flex items-center justify-center">PV</div>
                         <span className="text-xs font-semibold text-[#3a302a]">Priya Patel</span>
                       </div>
-                      <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#c2652a] text-white uppercase">On Call (06:14)</span>
+                      <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#c2652a] text-white uppercase">On Call</span>
                     </div>
 
                     <div className="grid grid-cols-3 gap-1 pt-1">
                       <button 
-                        onClick={() => alert("Silent monitoring channel connected for Priya Patel.")}
+                        onClick={() => alert("Silent monitoring active")}
                         className="px-2 py-1 rounded bg-[#f2ece4] hover:bg-[#ece6dc] text-[10px] font-semibold text-[#3a302a] cursor-pointer"
                       >
                         Monitor
@@ -432,7 +431,6 @@ export default function HeroSection({ onOpenDemo }) {
                       <button 
                         onClick={() => {
                           setWhisperActive(!whisperActive);
-                          alert(whisperActive ? "Whisper channel closed." : "Whisper channel open to Priya Patel.");
                         }}
                         className={`px-2 py-1 rounded text-[10px] font-semibold cursor-pointer ${
                           whisperActive ? 'bg-[#c2652a] text-white' : 'bg-[#f2ece4] text-[#3a302a]'
@@ -441,7 +439,7 @@ export default function HeroSection({ onOpenDemo }) {
                         Whisper
                       </button>
                       <button 
-                        onClick={() => alert("Call score audit scorecard opened.")}
+                        onClick={() => alert("Scorecard opened")}
                         className="px-2 py-1 rounded bg-[#eae2da] text-[10px] font-semibold text-[#605850] cursor-pointer"
                       >
                         Audit
@@ -450,7 +448,7 @@ export default function HeroSection({ onOpenDemo }) {
                   </div>
 
                   {/* Agent 2 */}
-                  <div className="p-2.5 rounded-xl bg-white shadow-xs space-y-2 border border-[#d8d0c8]/60">
+                  <div className="p-2.5 rounded-xl bg-white space-y-2 border border-[#d8d0c8]/60">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <div className="w-6 h-6 rounded-full bg-[#eae2da] text-[#605850] text-[10px] font-bold flex items-center justify-center">DK</div>
@@ -458,24 +456,16 @@ export default function HeroSection({ onOpenDemo }) {
                       </div>
                       <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#eae2da] text-[#2a2420] uppercase">Available</span>
                     </div>
-                    <div className="flex items-center justify-between text-[10px] text-[#605850]">
-                      <span>Idle: 00:32s</span>
-                      <span>Handled: 42 Calls</span>
-                    </div>
                   </div>
 
                   {/* Agent 3 */}
-                  <div className="p-2.5 rounded-xl bg-white shadow-xs space-y-2 border border-[#d8d0c8]/60">
+                  <div className="p-2.5 rounded-xl bg-white space-y-2 border border-[#d8d0c8]/60">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <div className="w-6 h-6 rounded-full bg-[#ece6dc] text-[#605850] text-[10px] font-bold flex items-center justify-center">SN</div>
                         <span className="text-xs font-semibold text-[#3a302a]">Sofia N.</span>
                       </div>
                       <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#f2ece4] text-[#605850] uppercase">Wrap-Up</span>
-                    </div>
-                    <div className="flex items-center justify-between text-[10px] text-[#605850]">
-                      <span>Logging CRM tags</span>
-                      <span className="font-mono text-[#8c3c3c]">00:18s left</span>
                     </div>
                   </div>
                 </div>
@@ -484,12 +474,7 @@ export default function HeroSection({ onOpenDemo }) {
               {/* Right Footer */}
               <div className="mt-4 pt-3 border-t border-[#d8d0c8]/60 flex items-center justify-between text-[11px] text-[#605850]">
                 <span>Whisper Channel: <strong className="text-[#3a302a]">{whisperActive ? 'Active' : 'Ready'}</strong></span>
-                <button 
-                  onClick={() => alert("Full fleet roster grid modal.")}
-                  className="text-[#c2652a] font-semibold hover:underline cursor-pointer"
-                >
-                  Full Grid
-                </button>
+                <span className="text-[#c2652a] font-semibold">Live Supervisor</span>
               </div>
             </div>
 
