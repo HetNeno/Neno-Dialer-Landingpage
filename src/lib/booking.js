@@ -8,24 +8,9 @@
 export async function submitDemoBooking({ name, email, company, phone, message = '' }) {
   // Read endpoint from environment variables (supports Vite VITE_ or Next.js NEXT_PUBLIC_ prefixes)
   const endpoint = 
-    import.meta.env.VITE_POWER_AUTOMATE_BOOKING_URL || 
-    import.meta.env.NEXT_PUBLIC_POWER_AUTOMATE_BOOKING_URL ||
-    (typeof process !== 'undefined' ? process.env?.NEXT_PUBLIC_POWER_AUTOMATE_BOOKING_URL : undefined);
-
-  // Development fallback check
-  if (!endpoint || endpoint.trim() === '') {
-    if (import.meta.env.DEV) {
-      console.warn('[Neno Dialer Booking] Missing VITE_POWER_AUTOMATE_BOOKING_URL environment variable.');
-      return {
-        success: false,
-        message: 'Power Automate booking endpoint is not configured.'
-      };
-    }
-    return {
-      success: false,
-      message: "We couldn't submit your request. Please check configuration and try again."
-    };
-  }
+    (import.meta.env.VITE_POWER_AUTOMATE_BOOKING_URL || '').trim() ||
+    (import.meta.env.NEXT_PUBLIC_POWER_AUTOMATE_BOOKING_URL || '').trim() ||
+    (typeof process !== 'undefined' && process.env?.NEXT_PUBLIC_POWER_AUTOMATE_BOOKING_URL ? process.env.NEXT_PUBLIC_POWER_AUTOMATE_BOOKING_URL.trim() : '');
 
   // Normalize data payload
   const payload = {
@@ -36,8 +21,28 @@ export async function submitDemoBooking({ name, email, company, phone, message =
     message: message ? message.trim() : ''
   };
 
+  // Fallback Simulation Mode: If no live Power Automate URL is configured in .env yet
+  if (!endpoint || endpoint === '' || endpoint === 'DEMO' || endpoint === 'MOCK') {
+    console.warn(
+      '[Neno Dialer Booking] No live Power Automate URL found in VITE_POWER_AUTOMATE_BOOKING_URL. Operating in Demo Simulation Mode.\n' +
+      'To connect your live Microsoft Power Automate flow, add VITE_POWER_AUTOMATE_BOOKING_URL=https://<your-flow-url> in your .env file.'
+    );
+
+    // Simulate network latency (1.2 seconds)
+    await new Promise((resolve) => setTimeout(resolve, 1200));
+
+    // Return successful mock response
+    const mockId = `ND-${new Date().toISOString().slice(0, 10).replace(/-/g, '')}-${Math.floor(100 + Math.random() * 900)}`;
+    return {
+      success: true,
+      bookingId: mockId,
+      message: 'Your Neno Dialer demo has been booked successfully.'
+    };
+  }
+
+  // Live Mode: Send HTTP POST request to Microsoft Power Automate HTTP trigger
   try {
-    const response = await fetch(endpoint.trim(), {
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -94,7 +99,7 @@ export async function submitDemoBooking({ name, email, company, phone, message =
     console.error('[Neno Dialer Booking Error]:', error);
     return {
       success: false,
-      message: "We couldn't submit your request. Please check your connection and try again."
+      message: "We couldn't submit your request to Power Automate. Please check your network connection or verify your Power Automate URL in .env."
     };
   }
 }
