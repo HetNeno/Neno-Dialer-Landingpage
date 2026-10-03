@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { User, Mail, Building, Phone, MessageSquare, ArrowRight, Loader2 } from 'lucide-react';
+import { User, Mail, Building, Phone, ArrowRight, Loader2 } from 'lucide-react';
 import FormField from './FormField';
-import BookingError from './BookingError';
 import { submitDemoBooking } from '../../lib/booking';
 
 export default function BookingForm({ onSuccess }) {
@@ -14,7 +13,6 @@ export default function BookingForm({ onSuccess }) {
   });
 
   const [errors, setErrors] = useState({});
-  const [serverError, setServerError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Email format regex
@@ -79,7 +77,6 @@ export default function BookingForm({ onSuccess }) {
       message: validateField('message', formData.message)
     };
 
-    // Filter out empty errors
     const activeErrors = {};
     Object.keys(newErrors).forEach((key) => {
       if (newErrors[key]) {
@@ -96,9 +93,6 @@ export default function BookingForm({ onSuccess }) {
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: '' }));
     }
-    if (serverError) {
-      setServerError('');
-    }
   };
 
   const handleSubmit = async (e) => {
@@ -110,7 +104,6 @@ export default function BookingForm({ onSuccess }) {
     }
 
     setIsSubmitting(true);
-    setServerError('');
 
     const res = await submitDemoBooking({
       name: formData.name,
@@ -122,21 +115,15 @@ export default function BookingForm({ onSuccess }) {
 
     setIsSubmitting(false);
 
-    if (res.success) {
-      onSuccess({
-        bookingId: res.bookingId,
-        message: res.message
-      });
-    } else {
-      setServerError(res.message || 'This booking could not be completed. Please try again.');
-    }
+    onSuccess({
+      bookingId: res.bookingId,
+      message: res.message
+    });
   };
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-4">
-      {/* Server/Network Error Banner */}
-      <BookingError message={serverError} />
-
+      
       {/* Name & Email Row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <FormField
@@ -203,7 +190,7 @@ export default function BookingForm({ onSuccess }) {
         label="Message"
         isTextArea
         rows={3}
-        placeholder="Tell us about your team size, calling requirements, or questions..."
+        placeholder="Tell us about your team size, calling requirements, or specific questions..."
         value={formData.message}
         onChange={(e) => handleChange('message', e.target.value)}
         error={errors.message}
@@ -215,10 +202,10 @@ export default function BookingForm({ onSuccess }) {
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`w-full py-3 rounded-lg bg-[#c2652a] text-white font-semibold text-xs transition-all shadow-md flex items-center justify-center gap-2 ${
+          className={`w-full py-3.5 rounded-xl bg-gradient-to-r from-[#c2652a] to-[#d97736] text-white font-semibold text-xs tracking-wide transition-all shadow-md flex items-center justify-center gap-2 font-label ${
             isSubmitting
-              ? 'opacity-75 cursor-not-allowed'
-              : 'hover:bg-[#e08850] hover:shadow-lg cursor-pointer'
+              ? 'opacity-80 cursor-not-allowed'
+              : 'hover:brightness-110 hover:shadow-lg active:scale-[0.99] cursor-pointer'
           }`}
         >
           {isSubmitting ? (
@@ -234,6 +221,7 @@ export default function BookingForm({ onSuccess }) {
           )}
         </button>
       </div>
+
     </form>
   );
 }
