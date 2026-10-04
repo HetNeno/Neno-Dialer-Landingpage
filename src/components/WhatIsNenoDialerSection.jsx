@@ -37,27 +37,29 @@ export default function WhatIsNenoDialerSection() {
 
   return (
     <section className="w-full py-16 lg:py-24 bg-[#FAFCFF] border-b border-[#E2E8F0]" id="what-is-neno">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="font-headline text-3xl sm:text-4xl font-bold text-[#0F172A]">
-            What is Neno Dialer?
+            <span className="text-reveal-mask">
+              <span className="text-reveal-item">What is Neno Dialer?</span>
+            </span>
           </h2>
-          <p className="text-sm sm:text-base text-[#475569] mt-3 leading-relaxed">
+          <p className="reveal-on-scroll text-sm sm:text-base text-[#475569] mt-3 leading-relaxed stagger-1">
             Neno Dialer is a sales calling automation platform designed to boost team manager control, reduce call routing friction, and increase call capacity with zero lag, real-time intelligence, and CRM integration.
           </p>
         </div>
 
         {/* 5-Step Process Pipeline Container */}
-        <div className="bg-[#EEF5FF]/50 p-6 sm:p-8 rounded-3xl border border-[#DBEAFE]">
+        <div className="reveal-on-scroll bg-[#EEF5FF]/50 p-6 sm:p-8 rounded-3xl border border-[#DBEAFE] stagger-2">
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
             {steps.map((item, idx) => {
               const IconComp = item.icon;
               return (
                 <div 
                   key={idx} 
-                  className="bg-[#FFFFFF] p-5 rounded-2xl border border-[#E2E8F0] shadow-xs flex flex-col justify-between hover:border-[#2563EB] transition-all group"
+                  className={`reveal-on-scroll card-hover-lift bg-[#FFFFFF] p-5 rounded-2xl border border-[#E2E8F0] shadow-xs flex flex-col justify-between group stagger-${idx + 1}`}
                 >
                   <div>
                     <div className="w-9 h-9 rounded-xl bg-[#EEF5FF] text-[#2563EB] flex items-center justify-center mb-4 group-hover:bg-[#2563EB] group-hover:text-white transition-colors">

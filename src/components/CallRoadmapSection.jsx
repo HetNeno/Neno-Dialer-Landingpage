@@ -31,7 +31,7 @@ export default function CallRoadmapSection() {
 
   return (
     <section className="w-full py-16 lg:py-24 bg-[#FAFCFF] border-b border-[#E2E8F0]" id="roadmap">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -39,9 +39,11 @@ export default function CallRoadmapSection() {
             1-ON-1 MENTOR SESSION
           </span>
           <h2 className="font-headline text-3xl sm:text-4xl font-bold text-[#0F172A]">
-            Your 15-Minute Neno Dialer Call
+            <span className="text-reveal-mask">
+              <span className="text-reveal-item">Your 15-Minute Neno Dialer Call</span>
+            </span>
           </h2>
-          <p className="text-sm sm:text-base text-[#475569] mt-3 leading-relaxed">
+          <p className="reveal-on-scroll text-sm sm:text-base text-[#475569] mt-3 leading-relaxed stagger-1">
             A simple, focused consultation process where our mentor explains the product and demonstrates how to scale your business.
           </p>
         </div>
@@ -53,7 +55,7 @@ export default function CallRoadmapSection() {
             return (
               <div 
                 key={idx}
-                className="bg-[#FFFFFF] p-8 rounded-2xl border border-[#E2E8F0] shadow-xs flex flex-col justify-between hover:border-[#2563EB]/40 hover:shadow-md transition-all relative"
+                className={`reveal-on-scroll card-hover-lift bg-[#FFFFFF] p-8 rounded-2xl border border-[#E2E8F0] shadow-xs flex flex-col justify-between relative stagger-${idx + 1}`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">

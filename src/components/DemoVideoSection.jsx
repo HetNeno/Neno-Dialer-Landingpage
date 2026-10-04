@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Play, Headphones, RefreshCw, BarChart2, ShieldCheck, Layers } from 'lucide-react';
+import { Play } from 'lucide-react';
 
 export default function DemoVideoSection({ onOpenDemo }) {
   const [activeTab, setActiveTab] = useState(0);
@@ -13,20 +13,22 @@ export default function DemoVideoSection({ onOpenDemo }) {
 
   return (
     <section className="w-full py-16 lg:py-24 bg-[#FAFCFF]" id="demo-video">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
         
-        {/* Header */}
+        {/* Header with Text Reveal */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="font-headline text-3xl sm:text-4xl font-bold text-[#0F172A]">
-            See Neno Dialer In Action
+            <span className="text-reveal-mask">
+              <span className="text-reveal-item">See Neno Dialer In Action</span>
+            </span>
           </h2>
-          <p className="text-sm sm:text-base text-[#475569] mt-2">
+          <p className="reveal-on-scroll text-sm sm:text-base text-[#475569] mt-2 stagger-1">
             A quick, real-time walkthrough experience of web-based calling workflows.
           </p>
         </div>
 
         {/* Video Player Mockup Container */}
-        <div className="max-w-4xl mx-auto bg-[#0F172A] rounded-2xl shadow-2xl overflow-hidden border border-[#1E293B]">
+        <div className="reveal-on-scroll max-w-4xl mx-auto bg-[#0F172A] rounded-2xl shadow-2xl overflow-hidden border border-[#1E293B] stagger-2">
           
           {/* Main Video Stage */}
           <div 

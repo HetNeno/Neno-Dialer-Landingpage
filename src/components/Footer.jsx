@@ -4,12 +4,12 @@ import { ArrowRight } from 'lucide-react';
 export default function Footer({ onOpenDemo }) {
   return (
     <footer className="w-full bg-[#FFFFFF] border-t border-[#E2E8F0] pt-16 pb-12 font-body text-[#0F172A]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
         
         {/* Main Footer Row */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 mb-12">
           
-          {/* Brand Info */}
+          {/* Brand Info with Baloo 2 ExtraBold styling */}
           <div className="md:col-span-5 space-y-4">
             <a href="#overview" className="flex items-center gap-3">
               <img
@@ -18,10 +18,10 @@ export default function Footer({ onOpenDemo }) {
                 className="w-9 h-9 object-contain"
               />
               <div className="flex flex-col">
-                <span className="text-xl font-headline font-bold tracking-tight text-[#0F172A]">
+                <span className="text-2xl font-logo font-extrabold tracking-tight text-[#0F172A] leading-none pt-0.5">
                   Neno Dialer
                 </span>
-                <span className="text-[10px] font-label uppercase tracking-widest text-[#475569] font-semibold -mt-1">
+                <span className="text-[10px] font-label uppercase tracking-widest text-[#475569] font-semibold mt-0.5">
                   by Neno Technology
                 </span>
               </div>
@@ -44,7 +44,7 @@ export default function Footer({ onOpenDemo }) {
             </h4>
             <ul className="space-y-2 text-xs text-[#475569]">
               <li><a href="#overview" className="hover:text-[#2563EB] transition-colors">Home</a></li>
-              <li><a href="#pricing" className="hover:text-[#2563EB] transition-colors">Plan &amp; Pricing</a></li>
+              <li><a href="#pricing" className="hover:text-[#2563EB] transition-colors">Consultation</a></li>
               <li><a href="#what-is-neno" className="hover:text-[#2563EB] transition-colors">What is Neno Dialer</a></li>
               <li><a href="#roadmap" className="hover:text-[#2563EB] transition-colors">15-Min Call Roadmap</a></li>
               <li><a href="#faq" className="hover:text-[#2563EB] transition-colors">FAQ</a></li>
@@ -57,13 +57,13 @@ export default function Footer({ onOpenDemo }) {
               1-on-1 Walkthrough
             </h4>
             <p className="text-xs text-[#475569] leading-relaxed">
-              Book a complete 15-minute dedicated mentor session for ₹49 + GST.
+              Book a complete 15-minute dedicated mentor session for ₹49.
             </p>
             <button
               onClick={onOpenDemo}
               className="px-5 py-2.5 rounded-lg bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-xs transition-colors shadow-xs inline-flex items-center gap-2 cursor-pointer"
             >
-              <span>Book Demo for ₹49 + GST</span>
+              <span>Book Demo for ₹49</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>

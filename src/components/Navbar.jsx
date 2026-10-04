@@ -32,7 +32,7 @@ export default function Navbar({ onOpenDemo }) {
 
   const navLinks = [
     { name: 'Home', href: '#overview', id: 'overview' },
-    { name: 'Plan & Pricing', href: '#pricing', id: 'pricing' },
+    { name: 'Consultation', href: '#pricing', id: 'pricing' },
     { name: 'FAQ', href: '#faq', id: 'faq' },
     { name: 'Contact', href: '#contact', id: 'contact' },
   ];
@@ -43,9 +43,9 @@ export default function Navbar({ onOpenDemo }) {
         ? 'bg-[#FFFFFF]/95 backdrop-blur-md shadow-xs border-b border-[#E2E8F0] py-3' 
         : 'bg-[#FFFFFF]/90 backdrop-blur-sm py-4 border-b border-[#E2E8F0]/50'
     }`}>
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between gap-6">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex items-center justify-between gap-6">
         
-        {/* Brand Logo with exact rounded logo font styling */}
+        {/* Brand Logo with exact Baloo 2 ExtraBold styling */}
         <a href="#overview" className="flex items-center gap-3 group">
           <img
             src="/logo.png"
@@ -53,7 +53,7 @@ export default function Navbar({ onOpenDemo }) {
             className="w-9 h-9 object-contain transition-transform duration-200 group-hover:scale-105"
           />
           <div className="flex flex-col">
-            <span className="text-xl font-logo font-extrabold tracking-tight text-[#0F172A] group-hover:text-[#2563EB] transition-colors leading-none">
+            <span className="text-2xl font-logo font-extrabold tracking-tight text-[#0F172A] group-hover:text-[#2563EB] transition-colors leading-none pt-0.5">
               Neno Dialer
             </span>
             <span className="text-[10px] font-label uppercase tracking-widest text-[#475569] font-semibold mt-0.5">

@@ -12,9 +12,12 @@ import FAQSection from './components/FAQSection';
 import FinalCTASection from './components/FinalCTASection';
 import Footer from './components/Footer';
 import DemoBookingModal from './components/DemoBookingModal';
+import { useScrollReveal } from './hooks/useScrollReveal';
 
 export default function App() {
   const [demoModalOpen, setDemoModalOpen] = useState(false);
+
+  useScrollReveal();
 
   const openDemoModal = () => setDemoModalOpen(true);
   const closeDemoModal = () => setDemoModalOpen(false);
@@ -29,7 +32,7 @@ export default function App() {
         {/* Section 1: Hero */}
         <HeroSection onOpenDemo={openDemoModal} />
 
-        {/* Section 2: Offer Highlight (Understand Neno Dialer. For ₹49 + GST.) */}
+        {/* Section 2: Offer Highlight (Understand Neno Dialer) */}
         <OfferSection onOpenDemo={openDemoModal} />
 
         {/* Section 3: Product Demo Video (See Neno Dialer In Action) */}
