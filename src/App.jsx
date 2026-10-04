@@ -1,21 +1,17 @@
 import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
+import OfferSection from './components/OfferSection';
+import DemoVideoSection from './components/DemoVideoSection';
+import WhatIsNenoDialerSection from './components/WhatIsNenoDialerSection';
 import ProblemSection from './components/ProblemSection';
-import ACDRoutingSection from './components/ACDRoutingSection';
-import InboundQueueSection from './components/InboundQueueSection';
-import OutboundModesSection from './components/OutboundModesSection';
-import CallRecordingSection from './components/CallRecordingSection';
-import CallAuditSection from './components/CallAuditSection';
-import WorkforceSection from './components/WorkforceSection';
-import ProductJourneySection from './components/ProductJourneySection';
-import PlatformCapabilitiesSection from './components/PlatformCapabilitiesSection';
-import IntegrationsSection from './components/IntegrationsSection';
-import IndustriesSection from './components/IndustriesSection';
-import SubscriptionSection from './components/SubscriptionSection';
+import HelpSection from './components/HelpSection';
+import WhereItFitsSection from './components/WhereItFitsSection';
+import CallRoadmapSection from './components/CallRoadmapSection';
 import FAQSection from './components/FAQSection';
-import DemoBookingModal from './components/DemoBookingModal';
+import FinalCTASection from './components/FinalCTASection';
 import Footer from './components/Footer';
+import DemoBookingModal from './components/DemoBookingModal';
 
 export default function App() {
   const [demoModalOpen, setDemoModalOpen] = useState(false);
@@ -24,32 +20,47 @@ export default function App() {
   const closeDemoModal = () => setDemoModalOpen(false);
 
   return (
-    <div className="min-h-screen bg-[#faf5ee] text-[#3a302a] flex flex-col font-body">
-      {/* Sticky Header */}
+    <div className="min-h-screen bg-[#FAFCFF] text-[#0F172A] flex flex-col font-body antialiased">
+      {/* Sticky Navbar */}
       <Navbar onOpenDemo={openDemoModal} />
 
-      {/* Main Content Sections */}
+      {/* Main Content Stack matching Stitch layout */}
       <main className="flex-grow pt-16">
+        {/* Section 1: Hero */}
         <HeroSection onOpenDemo={openDemoModal} />
+
+        {/* Section 2: Offer Highlight (Understand Neno Dialer. For ₹49 + GST.) */}
+        <OfferSection onOpenDemo={openDemoModal} />
+
+        {/* Section 3: Product Demo Video (See Neno Dialer In Action) */}
+        <DemoVideoSection onOpenDemo={openDemoModal} />
+
+        {/* Section 4: What is Neno Dialer (5-Step Flow) */}
+        <WhatIsNenoDialerSection />
+
+        {/* Section 5: Why Teams Explore Neno Dialer (Operational Challenges) */}
         <ProblemSection />
-        <ACDRoutingSection />
-        <InboundQueueSection />
-        <OutboundModesSection />
-        <CallRecordingSection />
-        <CallAuditSection />
-        <WorkforceSection />
-        <ProductJourneySection />
-        <PlatformCapabilitiesSection />
-        <IntegrationsSection />
-        <IndustriesSection />
-        <SubscriptionSection onOpenDemo={openDemoModal} />
+
+        {/* Section 6: What Neno Dialer Can Help With (6 Capabilities) */}
+        <HelpSection />
+
+        {/* Section 7: Where Neno Dialer Can Fit (4 Use Cases) */}
+        <WhereItFitsSection />
+
+        {/* Section 8: Your 15-Minute Neno Dialer Call (3-Step Roadmap) */}
+        <CallRoadmapSection />
+
+        {/* Section 9: FAQ */}
         <FAQSection />
+
+        {/* Section 10: Final CTA */}
+        <FinalCTASection onOpenDemo={openDemoModal} />
       </main>
 
-      {/* Enterprise Footer */}
+      {/* Footer */}
       <Footer onOpenDemo={openDemoModal} />
 
-      {/* Demo Booking Popup Modal */}
+      {/* Demo Booking Drawer / Modal */}
       <DemoBookingModal isOpen={demoModalOpen} onClose={closeDemoModal} />
     </div>
   );

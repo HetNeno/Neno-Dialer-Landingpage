@@ -1,91 +1,42 @@
 import React, { useState } from 'react';
-import { User, Mail, Building, Phone, ArrowRight, Loader2 } from 'lucide-react';
+import { User, Mail, Building, Phone, ArrowRight, Loader2, ShieldCheck, AlertCircle } from 'lucide-react';
 import FormField from './FormField';
-import { submitDemoBooking } from '../../lib/booking';
+import { processDemoBooking } from '../../lib/booking';
 
 export default function BookingForm({ onSuccess }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     company: '',
-    phone: '',
-    message: ''
+    phone: ''
   });
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  // Email format regex
   const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const validateField = (field, value) => {
-    let err = '';
-    const val = value ? value.trim() : '';
+  const validateForm = () => {
+    const newErrors = {};
 
-    switch (field) {
-      case 'name':
-        if (!val) {
-          err = 'Full Name is required';
-        } else if (val.length < 2) {
-          err = 'Please enter your full name';
-        }
-        break;
+    if (!formData.name.trim()) newErrors.name = 'Full Name is required';
+    if (!formData.company.trim()) newErrors.company = 'Business / Company Name is required';
 
-      case 'email':
-        if (!val) {
-          err = 'Work Email is required';
-        } else if (!EMAIL_REGEX.test(val)) {
-          err = 'Please enter a valid work email address';
-        }
-        break;
-
-      case 'company':
-        if (!val) {
-          err = 'Company name is required';
-        }
-        break;
-
-      case 'phone':
-        if (!val) {
-          err = 'Phone Number is required';
-        } else if (val.replace(/\D/g, '').length < 7) {
-          err = 'Please enter a valid phone number with country code';
-        } else if (val.length > 20) {
-          err = 'Phone number is too long';
-        }
-        break;
-
-      case 'message':
-        if (val.length > 500) {
-          err = 'Message must be less than 500 characters';
-        }
-        break;
-
-      default:
-        break;
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email Address is required';
+    } else if (!EMAIL_REGEX.test(formData.email.trim())) {
+      newErrors.email = 'Please enter a valid work email address';
     }
 
-    return err;
-  };
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone Number is required';
+    } else if (formData.phone.replace(/\D/g, '').length < 7) {
+      newErrors.phone = 'Please enter a valid phone number';
+    }
 
-  const validateForm = () => {
-    const newErrors = {
-      name: validateField('name', formData.name),
-      email: validateField('email', formData.email),
-      company: validateField('company', formData.company),
-      phone: validateField('phone', formData.phone),
-      message: validateField('message', formData.message)
-    };
-
-    const activeErrors = {};
-    Object.keys(newErrors).forEach((key) => {
-      if (newErrors[key]) {
-        activeErrors[key] = newErrors[key];
-      }
-    });
-
-    setErrors(activeErrors);
-    return Object.keys(activeErrors).length === 0;
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleChange = (field, value) => {
@@ -97,34 +48,58 @@ export default function BookingForm({ onSuccess }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isSubmitting) return; // Prevent duplicate submissions
+    if (isSubmitting) return;
 
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     setIsSubmitting(true);
+    setErrorMessage('');
 
-    const res = await submitDemoBooking({
-      name: formData.name,
-      email: formData.email,
-      company: formData.company,
-      phone: formData.phone,
-      message: formData.message
-    });
+    try {
+      const res = await processDemoBooking({
+        full_name: formData.name,
+        company_name: formData.company,
+        email: formData.email,
+        phone: formData.phone
+      });
 
-    setIsSubmitting(false);
+      setIsSubmitting(false);
 
-    onSuccess({
-      bookingId: res.bookingId,
-      message: res.message
-    });
+      if (res.success) {
+        onSuccess({
+          bookingId: res.bookingId,
+          full_name: formData.name,
+          company_name: formData.company,
+          email: formData.email,
+          phone: formData.phone,
+          message: res.message
+        });
+      } else {
+        setErrorMessage(res.message || 'Payment could not be completed. Please try again.');
+      }
+    } catch (err) {
+      setIsSubmitting(false);
+      setErrorMessage('Payment could not be completed. Please try again.');
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-4">
       
-      {/* Name & Email Row */}
+      {/* Error Notice */}
+      {errorMessage && (
+        <div className="p-3.5 rounded-xl bg-[#FEF2F2] border border-[#DC2626]/20 text-[#DC2626] text-xs flex items-start gap-2.5 animate-in fade-in duration-150">
+          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-[#DC2626]" />
+          <div className="leading-relaxed">
+            <strong className="font-semibold block text-[11px] uppercase tracking-wider mb-0.5 font-label">
+              Booking Notice
+            </strong>
+            <span>{errorMessage}</span>
+          </div>
+        </div>
+      )}
+
+      {/* Name & Company Row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <FormField
           id="name"
@@ -140,8 +115,24 @@ export default function BookingForm({ onSuccess }) {
         />
 
         <FormField
+          id="company"
+          label="Business / Company Name"
+          required
+          placeholder="Acme Corp"
+          icon={Building}
+          autoComplete="organization"
+          value={formData.company}
+          onChange={(e) => handleChange('company', e.target.value)}
+          error={errors.company}
+          disabled={isSubmitting}
+        />
+      </div>
+
+      {/* Email & Phone Row */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <FormField
           id="email"
-          label="Work Email"
+          label="Email Address"
           type="email"
           required
           placeholder="jane@company.com"
@@ -152,29 +143,13 @@ export default function BookingForm({ onSuccess }) {
           error={errors.email}
           disabled={isSubmitting}
         />
-      </div>
-
-      {/* Company & Phone Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <FormField
-          id="company"
-          label="Company"
-          required
-          placeholder="Acme Corp"
-          icon={Building}
-          autoComplete="organization"
-          value={formData.company}
-          onChange={(e) => handleChange('company', e.target.value)}
-          error={errors.company}
-          disabled={isSubmitting}
-        />
 
         <FormField
           id="phone"
           label="Phone Number"
           type="tel"
           required
-          placeholder="+1 (555) 000-0000 or +91 9876543210"
+          placeholder="+91 98765 43210"
           icon={Phone}
           autoComplete="tel"
           value={formData.phone}
@@ -184,42 +159,43 @@ export default function BookingForm({ onSuccess }) {
         />
       </div>
 
-      {/* Optional Message Field */}
-      <FormField
-        id="message"
-        label="Message"
-        isTextArea
-        rows={3}
-        placeholder="Tell us about your team size, calling requirements, or specific questions..."
-        value={formData.message}
-        onChange={(e) => handleChange('message', e.target.value)}
-        error={errors.message}
-        disabled={isSubmitting}
-      />
+      {/* Payment Information Summary */}
+      <div className="bg-[#F5F8FC] p-4 rounded-xl border border-[#E2E8F0] flex items-center justify-between">
+        <div>
+          <div className="text-xs font-bold text-[#0F172A]">Neno Dialer 15-Min Demo Call</div>
+          <div className="text-[11px] text-[#64748B]">Complete Product Mentor Walkthrough</div>
+        </div>
+        <div className="text-xl font-bold text-[#2563EB] font-headline">
+          ₹49
+        </div>
+      </div>
 
       {/* Submit Button */}
-      <div className="pt-2">
+      <div className="pt-2 space-y-2">
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`w-full py-3.5 rounded-xl bg-gradient-to-r from-[#c2652a] to-[#d97736] text-white font-semibold text-xs tracking-wide transition-all shadow-md flex items-center justify-center gap-2 font-label ${
-            isSubmitting
-              ? 'opacity-80 cursor-not-allowed'
-              : 'hover:brightness-110 hover:shadow-lg active:scale-[0.99] cursor-pointer'
+          className={`w-full py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] text-white font-semibold text-xs tracking-wide transition-colors shadow-xs flex items-center justify-center gap-2 font-label cursor-pointer ${
+            isSubmitting ? 'opacity-80 cursor-not-allowed' : ''
           }`}
         >
           {isSubmitting ? (
             <>
-              <Loader2 className="w-4 h-4 animate-spin" />
-              <span>Booking...</span>
+              <Loader2 className="w-4 h-4 animate-spin text-white" />
+              <span>Opening Razorpay Payment...</span>
             </>
           ) : (
             <>
-              <span>Book a Call</span>
+              <span>Pay ₹49 &amp; Book Demo Call</span>
               <ArrowRight className="w-4 h-4" />
             </>
           )}
         </button>
+
+        <p className="text-center text-xs text-[#64748B] flex items-center justify-center gap-1.5">
+          <ShieldCheck className="w-3.5 h-3.5 text-[#64748B]" />
+          <span>Next step: Select call date &amp; time after payment</span>
+        </p>
       </div>
 
     </form>

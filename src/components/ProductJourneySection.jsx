@@ -56,18 +56,18 @@ export default function ProductJourneySection() {
   ];
 
   return (
-    <section className="w-full py-20 lg:py-28 bg-[#faf5ee]" id="workflow">
+    <section className="w-full py-20 lg:py-28 bg-[#FAFCFF]" id="workflow">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs uppercase font-bold tracking-widest text-[#c2652a] block mb-2 font-label">
+          <span className="text-xs uppercase font-bold tracking-widest text-[#2563EB] block mb-2 font-label">
             The End-To-End Journey
           </span>
-          <h2 className="font-headline text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3a302a] leading-tight">
+          <h2 className="font-headline text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F172A] leading-tight">
             From Call Initiation to Complete Call Records.
           </h2>
-          <p className="text-base sm:text-lg text-[#605850] mt-4 leading-relaxed">
+          <p className="text-base sm:text-lg text-[#475569] mt-4 leading-relaxed">
             See how every voice interaction systematically flows through Neno Dialer to protect conversation context, ensure rep accountability, and sync enterprise records.
           </p>
         </div>
@@ -81,21 +81,21 @@ export default function ProductJourneySection() {
               <div
                 key={idx}
                 onClick={() => setActiveStep(idx)}
-                className={`bg-white p-6 rounded-2xl shadow-xs transition-all cursor-pointer border-2 relative flex flex-col justify-between ${
-                  isSelected ? 'border-[#c2652a] shadow-md bg-[#f6f0e8]/50' : 'border-[#d8d0c8]/60 hover:border-[#c2652a]/40'
+                className={`bg-[#FFFFFF] p-6 rounded-2xl shadow-xs transition-all cursor-pointer border-2 relative flex flex-col justify-between ${
+                  isSelected ? 'border-[#2563EB] shadow-xs bg-[#EEF5FF]/50' : 'border-[#E2E8F0] hover:border-[#2563EB]/40'
                 }`}
               >
                 <div>
                   <div className={`w-9 h-9 rounded-lg flex items-center justify-center font-bold text-sm mb-4 ${
-                    isSelected ? 'bg-[#c2652a] text-white' : 'bg-[#c2652a]/10 text-[#c2652a]'
+                    isSelected ? 'bg-[#2563EB] text-white' : 'bg-[#EEF5FF] text-[#2563EB]'
                   }`}>
                     {step.num}
                   </div>
-                  <h3 className="text-base font-bold text-[#3a302a] mb-2">{step.title}</h3>
-                  <p className="text-xs text-[#605850] leading-relaxed mb-4">{step.desc}</p>
+                  <h3 className="text-base font-bold text-[#0F172A] mb-2">{step.title}</h3>
+                  <p className="text-xs text-[#475569] leading-relaxed mb-4">{step.desc}</p>
                 </div>
 
-                <div className="pt-3 border-t border-[#d8d0c8]/50 text-[11px] font-mono text-[#c2652a] font-semibold">
+                <div className="pt-3 border-t border-[#E2E8F0] text-[11px] font-mono text-[#2563EB] font-semibold">
                   {step.detail}
                 </div>
               </div>

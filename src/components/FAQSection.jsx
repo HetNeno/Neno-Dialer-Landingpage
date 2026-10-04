@@ -6,28 +6,28 @@ export default function FAQSection() {
 
   const faqs = [
     {
-      q: 'What is Neno Dialer?',
-      a: 'Neno Dialer by Neno Technology is an enterprise business communication and call management platform unifying inbound ACD, predictive outbound dialing, WebRTC telephony, supervisor monitoring, dual-channel call recording, structured QA call auditing, and CRM data integrations into one software interface.'
+      q: 'What is the ₹49 demo call?',
+      a: 'The ₹49 call is a dedicated 15-minute 1-on-1 walkthrough session with our product specialist. We use this nominal fee to assign a dedicated consultant to analyze your specific sales workflow and explain the complete product.'
     },
     {
-      q: 'How does Automated Call Distribution (ACD) route calls when all reps are busy?',
-      a: 'When all agents are occupied, Neno Dialer places incoming calls into a skill-prioritized virtual queue. Callers can hear live wait time estimations, periodic queue position announcements, or trigger an automated virtual callback request so they can hang up without losing their position in line.'
+      q: 'What happens in the 15-minute call?',
+      a: 'During the 15 minutes, our mentor explains what the dialer is, who should use it, what it can do (3x calling capacity, ACD routing, live recording), why Neno Dialer benefits your business, and answers all your questions.'
     },
     {
-      q: 'What is the difference between Predictive, Progressive, and Preview calling modes?',
-      a: 'Predictive Calling uses statistical algorithms to dial multiple numbers concurrently per agent based on expected answer rates, ensuring zero rep idle time. Progressive Calling dials exactly one number per available rep as soon as their previous wrap-up timer expires. Preview Calling presents full CRM context to the agent before initiating the call.'
+      q: 'How do I book the call?',
+      a: 'Click any "Book Demo for ₹49" button on this page, fill out your contact details, complete the ₹49 payment via Razorpay, and then choose your preferred date and time slot.'
     },
     {
-      q: 'Can supervisors monitor live calls without the customer hearing them?',
-      a: 'Yes. Neno Dialer offers three distinct supervisor oversight modes: Silent Monitor (listen invisibly), Whisper Coaching (speak directly into the agent\'s ear without the caller hearing), and Barge-in (join the call as a full three-way participant).'
+      q: 'Will I get instant access to a live demo?',
+      a: 'Yes! Your product specialist will walk you through live working software, WebRTC calling modes, ACD routing, and supervisor dashboards right inside the video call.'
     },
     {
-      q: 'Is physical hardware or a PBX server needed on our premises?',
-      a: 'No physical hardware is required. Neno Dialer runs entirely on secure WebRTC cloud infrastructure. Your agents only require a modern web browser (Google Chrome, Microsoft Edge, Mozilla Firefox, or Apple Safari) and a standard headset.'
+      q: 'Who is this call suitable for?',
+      a: 'This session is suitable for business owners, sales managers, telecalling team leads, and B2B founders looking to scale calling capacity, monitor rep performance, and automate CRM logging.'
     },
     {
-      q: 'How does the Call Audit and Quality Scoring module operate?',
-      a: 'The Call Audit module presents QA evaluators with customizable scorecard checklists (greeting verification, disclosure statements, objection handling, CRM tagging). Auditors grade criteria, provide feedback, and track 30-day agent trajectory metrics.'
+      q: 'Can it connect with our existing CRM & workflow?',
+      a: 'Yes. Neno Dialer supports Webhooks and REST API integrations with popular CRMs including Salesforce, HubSpot, Zoho, and custom internal databases.'
     }
   ];
 
@@ -36,19 +36,19 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="w-full py-20 bg-[#f6f0e8] border-b border-[#d8d0c8]/60" id="faq">
+    <section className="w-full py-16 lg:py-24 bg-[#FAFCFF] border-b border-[#E2E8F0]" id="faq">
       <div className="max-w-4xl mx-auto px-6 lg:px-12">
         
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="text-xs uppercase font-bold tracking-widest text-[#c2652a] block mb-2 font-label">
-            Platform Clarifications
+          <span className="text-xs uppercase font-bold tracking-widest text-[#2563EB] block mb-2 font-label">
+            ANSWERS &amp; CLARIFICATIONS
           </span>
-          <h2 className="font-headline text-3xl sm:text-4xl font-bold text-[#3a302a]">
-            Frequently Asked Questions.
+          <h2 className="font-headline text-3xl sm:text-4xl font-bold text-[#0F172A]">
+            Frequently Asked Questions
           </h2>
-          <p className="text-sm text-[#605850] mt-2">
-            Everything you need to know about Neno Dialer deployment and capabilities.
+          <p className="text-sm text-[#475569] mt-2">
+            Clear answers to common questions about Neno Dialer.
           </p>
         </div>
 
@@ -58,19 +58,19 @@ export default function FAQSection() {
             const isOpen = openIndex === i;
 
             return (
-              <div key={i} className="bg-white rounded-xl shadow-xs border border-[#d8d0c8] overflow-hidden">
+              <div key={i} className="bg-[#FFFFFF] rounded-2xl shadow-xs border border-[#E2E8F0] overflow-hidden transition-all">
                 <button
                   onClick={() => toggle(i)}
-                  className="w-full p-5 text-left flex items-center justify-between gap-4 font-headline text-lg font-bold text-[#3a302a] hover:text-[#c2652a] transition-colors cursor-pointer"
+                  className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-headline text-base sm:text-lg font-bold text-[#0F172A] hover:text-[#2563EB] transition-colors cursor-pointer"
                 >
                   <span>{faq.q}</span>
-                  <ChevronDown className={`w-5 h-5 text-[#c2652a] shrink-0 transition-transform duration-200 ${
+                  <ChevronDown className={`w-5 h-5 text-[#2563EB] shrink-0 transition-transform duration-200 ${
                     isOpen ? 'rotate-180' : ''
                   }`} />
                 </button>
 
                 {isOpen && (
-                  <div className="px-5 pb-5 pt-0 text-xs sm:text-sm text-[#605850] leading-relaxed border-t border-[#d8d0c8]/40 mt-1 pt-3 font-body">
+                  <div className="px-5 sm:px-6 pb-6 pt-0 text-xs sm:text-sm text-[#475569] leading-relaxed border-t border-[#E2E8F0] mt-1 pt-4 font-body">
                     {faq.a}
                   </div>
                 )}

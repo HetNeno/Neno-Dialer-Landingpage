@@ -75,18 +75,18 @@ export default function IndustriesSection() {
   const CurrentIcon = current.icon;
 
   return (
-    <section className="w-full py-20 bg-[#f6f0e8] border-b border-[#d8d0c8]/60" id="industries">
+    <section className="w-full py-20 bg-[#F5F8FC] border-b border-[#E2E8F0]" id="industries">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         
         {/* Section Header */}
         <div className="max-w-3xl mb-16">
-          <span className="text-xs uppercase font-bold tracking-widest text-[#c2652a] block mb-2 font-label">
+          <span className="text-xs uppercase font-bold tracking-widest text-[#2563EB] block mb-2 font-label">
             Vertical Workflows
           </span>
-          <h2 className="font-headline text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3a302a] leading-tight">
+          <h2 className="font-headline text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F172A] leading-tight">
             Built for High-Volume Communication Sectors.
           </h2>
-          <p className="text-base sm:text-lg text-[#605850] mt-4 leading-relaxed">
+          <p className="text-base sm:text-lg text-[#475569] mt-4 leading-relaxed">
             Neno Dialer adapts to the strict compliance, high pacing, and customer documentation requirements of mission-critical industries.
           </p>
         </div>
@@ -103,12 +103,12 @@ export default function IndustriesSection() {
                 onClick={() => setActiveIndustry(idx)}
                 className={`p-4 rounded-xl text-left transition-all cursor-pointer border flex flex-col justify-between ${
                   isSelected
-                    ? 'bg-[#c2652a] text-white border-[#c2652a] shadow-md -translate-y-0.5'
-                    : 'bg-white text-[#3a302a] border-[#d8d0c8] hover:border-[#c2652a]/40 hover:bg-[#f6f0e8]'
+                    ? 'bg-[#2563EB] text-white border-[#2563EB] shadow-xs -translate-y-0.5'
+                    : 'bg-[#FFFFFF] text-[#0F172A] border-[#E2E8F0] hover:border-[#2563EB]/40 hover:bg-[#F5F8FC]'
                 }`}
               >
                 <div className={`w-8 h-8 rounded-lg flex items-center justify-center mb-3 ${
-                  isSelected ? 'bg-white/20 text-white' : 'bg-[#c2652a]/10 text-[#c2652a]'
+                  isSelected ? 'bg-white/20 text-white' : 'bg-[#EEF5FF] text-[#2563EB]'
                 }`}>
                   <Icon className="w-4 h-4" />
                 </div>
@@ -119,39 +119,39 @@ export default function IndustriesSection() {
         </div>
 
         {/* Dynamic Industry Workflow View */}
-        <div className="bg-white p-8 rounded-2xl shadow-sm border border-[#d8d0c8] flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+        <div className="bg-[#FFFFFF] p-8 rounded-2xl shadow-xs border border-[#E2E8F0] flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
           <div className="space-y-3 max-w-xl">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-[#c2652a]/10 text-[#c2652a] flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-[#EEF5FF] text-[#2563EB] flex items-center justify-center">
                 <CurrentIcon className="w-4 h-4" />
               </div>
-              <span className="text-xs uppercase font-bold tracking-wider text-[#c2652a] font-label">
+              <span className="text-xs uppercase font-bold tracking-wider text-[#2563EB] font-label">
                 {current.title} Communication Architecture
               </span>
             </div>
 
-            <h3 className="font-headline text-2xl font-bold text-[#3a302a]">
+            <h3 className="font-headline text-2xl font-bold text-[#0F172A]">
               Tailored Workflow for {current.title}
             </h3>
 
-            <p className="text-sm text-[#605850] leading-relaxed">
+            <p className="text-sm text-[#475569] leading-relaxed">
               {current.desc}
             </p>
 
-            <div className="pt-2 font-mono text-xs text-[#3a302a] bg-[#f6f0e8] p-3 rounded-lg border border-[#d8d0c8]/60">
-              <span className="text-[#605850] block text-[10px] uppercase font-bold mb-1 font-label">Configured Sequence:</span>
+            <div className="pt-2 font-mono text-xs text-[#0F172A] bg-[#F5F8FC] p-3 rounded-lg border border-[#E2E8F0]">
+              <span className="text-[#64748B] block text-[10px] uppercase font-bold mb-1 font-label">Configured Sequence:</span>
               {current.workflow}
             </div>
           </div>
 
-          <div className="bg-[#f6f0e8] p-6 rounded-xl border border-[#d8d0c8]/60 text-center shrink-0 w-full lg:w-72">
-            <span className="text-[10px] uppercase font-bold text-[#605850] block tracking-wider font-label">
+          <div className="bg-[#F5F8FC] p-6 rounded-xl border border-[#E2E8F0] text-center shrink-0 w-full lg:w-72">
+            <span className="text-[10px] uppercase font-bold text-[#64748B] block tracking-wider font-label">
               Industry Standard KPI
             </span>
-            <span className="text-2xl font-headline font-bold text-[#c2652a] block mt-1">
+            <span className="text-2xl font-headline font-bold text-[#2563EB] block mt-1">
               {current.kpi}
             </span>
-            <span className="text-xs text-[#605850] mt-2 block font-mono">Verified Source Workflow</span>
+            <span className="text-xs text-[#64748B] mt-2 block font-mono">Verified Source Workflow</span>
           </div>
         </div>
 

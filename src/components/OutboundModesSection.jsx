@@ -47,18 +47,18 @@ export default function OutboundModesSection() {
   ];
 
   return (
-    <section className="w-full py-20 lg:py-28 bg-[#faf5ee]" id="calling-modes">
+    <section className="w-full py-20 lg:py-28 bg-[#FAFCFF]" id="calling-modes">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs uppercase font-bold tracking-widest text-[#c2652a] block mb-2 font-label">
+          <span className="text-xs uppercase font-bold tracking-widest text-[#2563EB] block mb-2 font-label">
             Outbound Architectures
           </span>
-          <h2 className="font-headline text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3a302a] leading-tight">
+          <h2 className="font-headline text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F172A] leading-tight">
             Choose the Calling Mode That Fits Your Workflow.
           </h2>
-          <p className="text-base sm:text-lg text-[#605850] mt-4 leading-relaxed">
+          <p className="text-base sm:text-lg text-[#475569] mt-4 leading-relaxed">
             From high-velocity outreach campaigns to high-touch consultative sales, Neno Dialer provides three distinct dialing engines engineered to maximize talk time and context.
           </p>
         </div>
@@ -73,40 +73,40 @@ export default function OutboundModesSection() {
               <div
                 key={mode.id}
                 onClick={() => setSelectedMode(mode.id)}
-                className={`bg-white p-8 rounded-2xl shadow-xs transition-all cursor-pointer flex flex-col justify-between border-2 ${
-                  isSelected ? 'border-[#c2652a] shadow-md -translate-y-1' : 'border-[#d8d0c8]/70 hover:border-[#c2652a]/40'
+                className={`bg-[#FFFFFF] p-8 rounded-2xl shadow-xs transition-all cursor-pointer flex flex-col justify-between border-2 ${
+                  isSelected ? 'border-[#2563EB] shadow-xs -translate-y-1' : 'border-[#E2E8F0] hover:border-[#2563EB]/40'
                 }`}
               >
                 <div>
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 ${
-                    isSelected ? 'bg-[#c2652a] text-white' : 'bg-[#c2652a]/10 text-[#c2652a]'
+                    isSelected ? 'bg-[#2563EB] text-white' : 'bg-[#EEF5FF] text-[#2563EB]'
                   }`}>
                     <Icon className="w-6 h-6" />
                   </div>
 
-                  <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#c2652a] mb-1">
+                  <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#2563EB] mb-1">
                     {mode.subtitle}
                   </div>
-                  <h3 className="font-headline text-2xl font-bold text-[#3a302a] mb-3">
+                  <h3 className="font-headline text-2xl font-bold text-[#0F172A] mb-3">
                     {mode.title}
                   </h3>
-                  <p className="text-sm text-[#605850] leading-relaxed mb-6">
+                  <p className="text-sm text-[#475569] leading-relaxed mb-6">
                     {mode.description}
                   </p>
 
-                  <div className="space-y-2.5 pt-2 mb-6 border-t border-[#d8d0c8]/50">
+                  <div className="space-y-2.5 pt-2 mb-6 border-t border-[#E2E8F0]">
                     {mode.highlights.map((h, i) => (
-                      <div key={i} className="flex items-center gap-2 text-xs text-[#3a302a]">
-                        <Check className="w-4 h-4 text-[#c2652a] shrink-0" />
+                      <div key={i} className="flex items-center gap-2 text-xs text-[#0F172A]">
+                        <Check className="w-4 h-4 text-[#2563EB] shrink-0" />
                         <span>{h}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="pt-4 bg-[#f6f0e8] px-4 py-2.5 rounded-lg flex items-center justify-between text-xs font-mono border border-[#d8d0c8]/50">
-                  <span className="text-[#605850]">Best For:</span>
-                  <span className="font-bold text-[#3a302a]">{mode.bestFor}</span>
+                <div className="pt-4 bg-[#F5F8FC] px-4 py-2.5 rounded-lg flex items-center justify-between text-xs font-mono border border-[#E2E8F0]">
+                  <span className="text-[#64748B]">Best For:</span>
+                  <span className="font-bold text-[#0F172A]">{mode.bestFor}</span>
                 </div>
               </div>
             );
