@@ -46,7 +46,7 @@ export default function HeroSection({ onOpenDemo }) {
           <div className="reveal-on-scroll is-visible flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 stagger-2">
             <button
               onClick={onOpenDemo}
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#2563EB] text-white font-semibold text-sm tracking-wide hover:bg-[#1D4ED8] active:bg-[#1E40AF] transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2.5 cursor-pointer"
+              className="btn-press-effect active:scale-97 w-full sm:w-auto px-8 py-4 rounded-xl bg-[#2563EB] text-white font-semibold text-sm tracking-wide hover:bg-[#1D4ED8] active:bg-[#1E40AF] transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2.5 cursor-pointer"
             >
               <span>Book a Demo • ₹49</span>
               <ArrowRight className="w-4 h-4 text-white" />

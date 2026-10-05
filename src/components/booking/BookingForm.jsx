@@ -175,7 +175,7 @@ export default function BookingForm({ onSuccess }) {
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`w-full py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] text-white font-semibold text-xs tracking-wide transition-colors shadow-xs flex items-center justify-center gap-2 font-label cursor-pointer ${
+          className={`btn-light-sweep btn-press-effect w-full py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] text-white font-semibold text-xs tracking-wide transition-all duration-200 shadow-xs hover:shadow-md hover:-translate-y-[1px] active:scale-[0.98] flex items-center justify-center gap-2 font-label cursor-pointer ${
             isSubmitting ? 'opacity-80 cursor-not-allowed' : ''
           }`}
         >

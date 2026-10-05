@@ -101,7 +101,7 @@ export default function SubscriptionSection({ onOpenDemo }) {
 
             <button
               onClick={onOpenDemo}
-              className="w-full py-3 rounded-lg bg-[#F5F8FC] hover:bg-[#EEF5FF] text-[#0F172A] font-semibold text-xs text-center transition-colors border border-[#E2E8F0] cursor-pointer"
+              className="btn-press-effect active:scale-97 w-full py-3 rounded-lg bg-[#F5F8FC] hover:bg-[#EEF5FF] text-[#0F172A] font-semibold text-xs text-center transition-all border border-[#E2E8F0] cursor-pointer"
             >
               Get Started Monthly
             </button>
@@ -161,7 +161,7 @@ export default function SubscriptionSection({ onOpenDemo }) {
 
             <button
               onClick={onOpenDemo}
-              className="w-full py-3 rounded-lg bg-[#2563EB] text-white font-semibold text-xs text-center hover:bg-[#1D4ED8] active:bg-[#1E40AF] transition-colors shadow-xs cursor-pointer"
+              className="btn-press-effect active:scale-97 w-full py-3 rounded-lg bg-[#2563EB] text-white font-semibold text-xs text-center hover:bg-[#1D4ED8] active:bg-[#1E40AF] transition-all shadow-xs cursor-pointer"
             >
               Choose Annual Plan
             </button>
@@ -215,7 +215,7 @@ export default function SubscriptionSection({ onOpenDemo }) {
 
             <button
               onClick={onOpenDemo}
-              className="w-full py-3 rounded-lg bg-[#0F172A] hover:bg-[#1E293B] text-white font-semibold text-xs text-center transition-colors cursor-pointer"
+              className="btn-press-effect active:scale-97 w-full py-3 rounded-lg bg-[#0F172A] hover:bg-[#1E293B] text-white font-semibold text-xs text-center transition-all cursor-pointer"
             >
               Request Custom Quote
             </button>
@@ -237,7 +237,7 @@ export default function SubscriptionSection({ onOpenDemo }) {
 
           <button
             onClick={onOpenDemo}
-            className="px-6 py-2.5 rounded-lg bg-[#2563EB] text-white text-xs font-semibold hover:bg-[#1D4ED8] transition-colors shrink-0 cursor-pointer shadow-xs"
+            className="btn-press-effect active:scale-97 px-6 py-2.5 rounded-lg bg-[#2563EB] text-white text-xs font-semibold hover:bg-[#1D4ED8] transition-all shrink-0 cursor-pointer shadow-xs"
           >
             Talk to Sales
           </button>

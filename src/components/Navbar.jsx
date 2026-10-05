@@ -84,7 +84,7 @@ export default function Navbar({ onOpenDemo }) {
         <div className="flex items-center gap-1.5 sm:gap-3 lg:gap-4 shrink-0">
           <button
             onClick={onOpenDemo}
-            className="inline-flex items-center justify-center px-2 xs:px-2.5 sm:px-4 py-1.5 xs:py-2 sm:py-2.5 rounded-lg bg-[#2563EB] text-white font-label text-[10px] xs:text-[11px] sm:text-xs font-bold hover:bg-[#1D4ED8] active:bg-[#1E40AF] transition-all shadow-xs cursor-pointer gap-1 sm:gap-2 whitespace-nowrap shrink-0"
+            className="btn-press-effect active:scale-97 inline-flex items-center justify-center px-2 xs:px-2.5 sm:px-4 py-1.5 xs:py-2 sm:py-2.5 rounded-lg bg-[#2563EB] text-white font-label text-[10px] xs:text-[11px] sm:text-xs font-bold hover:bg-[#1D4ED8] active:bg-[#1E40AF] transition-all shadow-xs cursor-pointer gap-1 sm:gap-2 whitespace-nowrap shrink-0"
           >
             <span>Book a Demo for ₹49</span>
             <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
@@ -120,7 +120,7 @@ export default function Navbar({ onOpenDemo }) {
                 setMobileMenuOpen(false);
                 onOpenDemo();
               }}
-              className="w-full py-3 rounded-lg bg-[#2563EB] text-white font-label text-xs font-bold text-center shadow-xs"
+              className="btn-press-effect active:scale-97 w-full py-3 rounded-lg bg-[#2563EB] text-white font-label text-xs font-bold text-center shadow-xs cursor-pointer"
             >
               Book a Demo for ₹49
             </button>

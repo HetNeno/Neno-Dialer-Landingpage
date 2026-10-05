@@ -174,6 +174,86 @@
 }
 
 /* ====================================================
+   PREMIUM MODAL ANIMATIONS & BUTTON INTERACTION SYSTEM
+   ==================================================== */
+
+/* Physical Button Press Effect */
+.btn-press-effect {
+  transition: transform 120ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 150ms ease, background-color 150ms ease;
+}
+.btn-press-effect:active {
+  transform: scale(0.97) !important;
+}
+
+/* Payment Button Light Sweep Effect */
+.btn-light-sweep {
+  position: relative;
+  overflow: hidden;
+}
+.btn-light-sweep::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.btn-light-sweep:hover::after {
+  opacity: 1;
+  animation: sweepHighlight 0.85s ease-out forwards;
+}
+
+@keyframes sweepHighlight {
+  0% {
+    left: -60%;
+  }
+  100% {
+    left: 140%;
+  }
+}
+
+/* Modal Ambient Shadow Glow */
+.modal-glow-shadow {
+  box-shadow: 0 25px 80px rgba(15, 23, 42, 0.22), 0 0 45px rgba(37, 99, 235, 0.08);
+}
+
+/* Modal Stagger Content Entrance */
+.modal-stagger-item {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1), transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.modal-stagger-visible .modal-stagger-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+.modal-stagger-delay-1 { transition-delay: 50ms; }
+.modal-stagger-delay-2 { transition-delay: 110ms; }
+.modal-stagger-delay-3 { transition-delay: 170ms; }
+.modal-stagger-delay-4 { transition-delay: 230ms; }
+.modal-stagger-delay-5 { transition-delay: 290ms; }
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  .modal-stagger-item {
+    transform: none !important;
+    transition-duration: 0.15s !important;
+  }
+  .btn-light-sweep::after {
+    display: none !important;
+  }
+}
+
+/* ====================================================
    GLOBAL NETWORK MAP UNCROPPED ASPECT RATIO STYLES
    ==================================================== */
 .global-network-image-wrapper {

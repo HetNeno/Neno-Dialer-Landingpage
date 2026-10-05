@@ -74,7 +74,7 @@ export default function OfferSection({ onOpenDemo }) {
 
                 <button
                   onClick={onOpenDemo}
-                  className="w-full py-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] text-white font-semibold text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer"
+                  className="btn-press-effect active:scale-97 w-full py-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] text-white font-semibold text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>Book Demo for ₹49</span>
                   <ArrowRight className="w-4 h-4 text-white" />

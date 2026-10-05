@@ -30,7 +30,7 @@ export default function FinalCTASection({ onOpenDemo }) {
             <div className="pt-2">
               <button
                 onClick={onOpenDemo}
-                className="w-full sm:w-auto px-9 py-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] text-white font-semibold text-sm tracking-wide transition-all shadow-lg hover:shadow-xl inline-flex items-center justify-center gap-2.5 cursor-pointer"
+                className="btn-press-effect active:scale-97 w-full sm:w-auto px-9 py-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] text-white font-semibold text-sm tracking-wide transition-all shadow-lg hover:shadow-xl inline-flex items-center justify-center gap-2.5 cursor-pointer"
               >
                 <span>Book Demo • ₹49</span>
                 <ArrowRight className="w-4 h-4 text-white" />
