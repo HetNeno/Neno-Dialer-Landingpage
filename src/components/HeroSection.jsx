@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { 
   ArrowRight, ShieldCheck, Zap, CheckCircle2, Play, HelpCircle, Users, TrendingUp
 } from 'lucide-react';
 
 export default function HeroSection({ onOpenDemo }) {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = useCallback((e) => {
+    // Determine cursor offset from center of screen (-1 to 1) 
+    // multiplied by 12px for subtle, premium movement depth.
+    const x = (e.clientX / window.innerWidth - 0.5) * -12;
+    const y = (e.clientY / window.innerHeight - 0.5) * -12;
+    setMousePos({ x, y });
+  }, []);
+
   const scrollToVideo = () => {
     const el = document.getElementById('demo-video');
     if (el) {
@@ -12,9 +22,36 @@ export default function HeroSection({ onOpenDemo }) {
   };
 
   return (
-    <section className="relative w-full min-h-[calc(100vh-4rem)] pt-16 pb-20 lg:pt-24 lg:pb-32 overflow-hidden bg-[#FAFCFF] flex items-center" id="overview">
+    <section 
+      onMouseMove={handleMouseMove}
+      className="relative w-full min-h-[calc(100vh-4rem)] pt-16 pb-20 lg:pt-24 lg:pb-32 overflow-hidden bg-[#FAFCFF] flex items-center" 
+      id="overview"
+    >
+      {/* Interactive Parallax Background Minimal Dot Grid */}
+      <div 
+        className="absolute inset-0 pointer-events-none overflow-hidden" 
+        style={{ 
+          zIndex: 0,
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 10%, black 80%, transparent)',
+          maskImage: 'linear-gradient(to bottom, transparent, black 10%, black 80%, transparent)'
+        }}
+      >
+        <div 
+          className="absolute inset-[-10%] w-[120%] h-[120%] transition-transform duration-500 ease-out"
+          style={{ 
+            transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0)`,
+            backgroundImage: `radial-gradient(#94A3B8 1.5px, transparent 1.5px)`,
+            backgroundPosition: '0 0',
+            backgroundSize: '40px 40px',
+            WebkitMaskImage: 'radial-gradient(ellipse 50% 50% at 50% 40%, transparent 25%, black 80%)',
+            maskImage: 'radial-gradient(ellipse 50% 50% at 50% 40%, transparent 25%, black 80%)',
+            opacity: 0.4
+          }}
+        />
+      </div>
+
       {/* Soft ambient background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[550px] bg-[rgba(37,99,235,0.05)] rounded-full blur-3xl pointer-events-none -z-10"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[550px] bg-[rgba(37,99,235,0.05)] rounded-full blur-3xl pointer-events-none z-[-6]"></div>
       
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 w-full">
         
@@ -32,8 +69,8 @@ export default function HeroSection({ onOpenDemo }) {
             <span className="text-reveal-mask block">
               <span className="text-reveal-item is-visible">More Conversations.</span>
             </span>
-            <span className="text-reveal-mask block">
-              <span className="text-reveal-item is-visible italic font-normal text-[#2563EB]">Less Time Dialing.</span>
+            <span className="text-reveal-mask block pb-2 -mb-2 pr-4 -mr-4">
+              <span className="text-reveal-item is-visible italic font-normal text-[#2563EB] pr-4">Less Time Dialing.</span>
             </span>
           </h1>
 
