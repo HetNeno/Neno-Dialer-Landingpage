@@ -68,6 +68,7 @@ export default function BookingForm({ onSuccess }) {
       if (res.success) {
         onSuccess({
           bookingId: res.bookingId,
+          payment_token: res.payment_token,
           full_name: formData.name,
           company_name: formData.company,
           email: formData.email,

@@ -1,26 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Play } from 'lucide-react';
 
 export default function DemoVideoSection({ onOpenDemo }) {
-  const [activeTab, setActiveTab] = useState(0);
-
-  const tabs = [
-    { name: "LIVE ACD DEMO", desc: "Automated call distribution & skill routing" },
-    { name: "INBOUND ROUTING", desc: "Queue management & instant IVR fallback" },
-    { name: "OUTBOUND CAMPAIGN", desc: "Predictive & progressive dialing pacing" },
-    { name: "CRM SYNC", desc: "Real-time bi-directional contact update" }
-  ];
-
   return (
     <section className="w-full py-16 lg:py-24 bg-[#FAFCFF]" id="demo-video">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
         
-        {/* Header with Text Reveal */}
+        {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="font-headline text-3xl sm:text-4xl font-bold text-[#0F172A]">
-            <span className="text-reveal-mask">
-              <span className="text-reveal-item">See Neno Dialer In Action</span>
-            </span>
+            See Neno Dialer In Action
           </h2>
           <p className="reveal-on-scroll text-sm sm:text-base text-[#475569] mt-2 stagger-1">
             A quick, real-time walkthrough experience of web-based calling workflows.
@@ -52,26 +41,6 @@ export default function DemoVideoSection({ onOpenDemo }) {
               <span className="bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700">100% WebRTC Stream</span>
               <span className="bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700">HD FLAC Audio</span>
             </div>
-          </div>
-
-          {/* Bottom Tabs Bar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 border-t border-[#1E293B] bg-[#090D16]">
-            {tabs.map((tab, idx) => (
-              <button
-                key={idx}
-                onClick={() => setActiveTab(idx)}
-                className={`p-4 text-center transition-colors border-r border-[#1E293B] last:border-r-0 cursor-pointer ${
-                  activeTab === idx ? 'bg-[#1E293B] text-[#60A5FA]' : 'text-slate-400 hover:text-white hover:bg-[#1E293B]/50'
-                }`}
-              >
-                <div className="text-[11px] font-mono font-bold tracking-wider uppercase block">
-                  {tab.name}
-                </div>
-                <div className="text-[10px] text-slate-400 mt-1 truncate">
-                  {tab.desc}
-                </div>
-              </button>
-            ))}
           </div>
 
         </div>

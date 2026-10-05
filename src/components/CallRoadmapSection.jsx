@@ -39,9 +39,7 @@ export default function CallRoadmapSection() {
             1-ON-1 MENTOR SESSION
           </span>
           <h2 className="font-headline text-3xl sm:text-4xl font-bold text-[#0F172A]">
-            <span className="text-reveal-mask">
-              <span className="text-reveal-item">Your 15-Minute Neno Dialer Call</span>
-            </span>
+            Your 15-Minute Neno Dialer Call
           </h2>
           <p className="reveal-on-scroll text-sm sm:text-base text-[#475569] mt-3 leading-relaxed stagger-1">
             A simple, focused consultation process where our mentor explains the product and demonstrates how to scale your business.

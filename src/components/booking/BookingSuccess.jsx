@@ -23,9 +23,45 @@ export default function BookingSuccess({ bookingDetails, onClose }) {
     '05:00 PM'
   ];
 
-  const handleConfirmSchedule = (e) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleConfirmSchedule = async (e) => {
     e.preventDefault();
-    setIsScheduled(true);
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+    setErrorMessage('');
+
+    try {
+      const res = await fetch('/api/confirm-booking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          payment_token: bookingDetails.payment_token,
+          booking_data: {
+            full_name,
+            company_name,
+            email,
+            phone: bookingDetails.phone,
+            selected_date: selectedDate,
+            selected_time: selectedTime,
+            duration_mins: 15
+          }
+        })
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setIsScheduled(true);
+      } else {
+        setErrorMessage(data.message || 'Failed to secure your booking. Please try again.');
+      }
+    } catch (err) {
+      setErrorMessage('A network error occurred while confirming your booking.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -89,12 +125,21 @@ export default function BookingSuccess({ bookingDetails, onClose }) {
             </div>
           </div>
 
+          {errorMessage && (
+            <div className="p-3 text-[#DC2626] bg-[#FEF2F2] border border-[#DC2626]/20 rounded-xl text-xs font-medium text-center">
+              {errorMessage}
+            </div>
+          )}
+
           <button
             type="submit"
-            className="w-full py-3 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-xs transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
+            disabled={isSubmitting}
+            className={`w-full py-3 rounded-xl text-white font-semibold text-xs transition-all shadow-xs flex items-center justify-center gap-2 ${
+              isSubmitting ? 'bg-[#94A3B8] cursor-not-allowed' : 'bg-[#2563EB] hover:bg-[#1D4ED8] cursor-pointer'
+            }`}
           >
-            <span>Confirm Call Schedule</span>
-            <ArrowRight className="w-4 h-4" />
+            <span>{isSubmitting ? 'Securing Calendar...' : 'Confirm Call Schedule'}</span>
+            {!isSubmitting && <ArrowRight className="w-4 h-4" />}
           </button>
         </form>
       ) : (

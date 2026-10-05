@@ -61,53 +61,37 @@ export default function HeroSection({ onOpenDemo }) {
             </button>
           </div>
 
-          {/* Credibility Ribbon */}
-          <div className="reveal-on-scroll is-visible pt-8 border-t border-[#E2E8F0] flex flex-wrap items-center justify-center gap-y-3 gap-x-8 text-xs font-semibold text-[#475569] uppercase tracking-wider stagger-3">
-            <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#2563EB]" /> Complete 15-Min Live Demo</span>
-            <span className="text-[#CBD5E1] hidden sm:inline">•</span>
-            <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-[#2563EB]" /> Dedicated Mentor Walkthrough</span>
-            <span className="text-[#CBD5E1] hidden sm:inline">•</span>
-            <span className="flex items-center gap-2"><Zap className="w-4 h-4 text-[#2563EB]" /> Grow &amp; Fast-Track Business</span>
-          </div>
 
-          {/* 15-Minute Demo Call Highlight Cards in Hero with Staggered Animations */}
-          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left max-w-5xl mx-auto">
-            <div className="reveal-on-scroll is-visible card-hover-lift bg-[#FFFFFF] p-5 rounded-2xl border border-[#E2E8F0] shadow-xs stagger-1">
-              <div className="w-8 h-8 rounded-lg bg-[#EEF5FF] text-[#2563EB] flex items-center justify-center mb-3">
-                <HelpCircle className="w-4 h-4" />
-              </div>
-              <h3 className="font-headline font-bold text-sm text-[#0F172A] mb-1">What is the Dialer?</h3>
-              <p className="text-xs text-[#475569] leading-relaxed">Understanding WebRTC cloud calling architecture &amp; automated dialing.</p>
-            </div>
-
-            <div className="reveal-on-scroll is-visible card-hover-lift bg-[#FFFFFF] p-5 rounded-2xl border border-[#E2E8F0] shadow-xs stagger-2">
-              <div className="w-8 h-8 rounded-lg bg-[#EEF5FF] text-[#2563EB] flex items-center justify-center mb-3">
-                <Users className="w-4 h-4" />
-              </div>
-              <h3 className="font-headline font-bold text-sm text-[#0F172A] mb-1">Who &amp; How to Use?</h3>
-              <p className="text-xs text-[#475569] leading-relaxed">For telecallers, sales reps, B2B founders, and inside sales teams.</p>
-            </div>
-
-            <div className="reveal-on-scroll is-visible card-hover-lift bg-[#FFFFFF] p-5 rounded-2xl border border-[#E2E8F0] shadow-xs stagger-3">
-              <div className="w-8 h-8 rounded-lg bg-[#EEF5FF] text-[#2563EB] flex items-center justify-center mb-3">
-                <Zap className="w-4 h-4" />
-              </div>
-              <h3 className="font-headline font-bold text-sm text-[#0F172A] mb-1">What It Can Do?</h3>
-              <p className="text-xs text-[#475569] leading-relaxed">3x call velocity, ACD queue drops, supervisor whisper &amp; auto recording.</p>
-            </div>
-
-            <div className="reveal-on-scroll is-visible card-hover-lift bg-[#FFFFFF] p-5 rounded-2xl border border-[#E2E8F0] shadow-xs stagger-4">
-              <div className="w-8 h-8 rounded-lg bg-[#EEF5FF] text-[#2563EB] flex items-center justify-center mb-3">
-                <TrendingUp className="w-4 h-4" />
-              </div>
-              <h3 className="font-headline font-bold text-sm text-[#0F172A] mb-1">Business Benefits</h3>
-              <p className="text-xs text-[#475569] leading-relaxed">Grow fast, reduce rep idle time, and eliminate hardware cost.</p>
-            </div>
-          </div>
 
         </div>
 
       </div>
+
+      {/* Animated Bottom Waves */}
+      <div className="absolute bottom-0 left-0 w-full pointer-events-none z-[-1] overflow-hidden leading-[0]" style={{ height: '30vh', minHeight: '200px' }}>
+        <svg
+          className="absolute bottom-0 w-[200%] h-full"
+          style={{ left: '-50%' }}
+          xmlns="http://www.w3.org/2000/svg"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
+          viewBox="0 24 150 28"
+          preserveAspectRatio="none"
+        >
+          <defs>
+            <path
+              id="gentle-wave"
+              d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
+            />
+          </defs>
+          <g className="parallax-waves">
+            <use href="#gentle-wave" x="48" y="0" fill="rgba(37,99,235,0.03)" />
+            <use href="#gentle-wave" x="48" y="3" fill="rgba(37,99,235,0.05)" />
+            <use href="#gentle-wave" x="48" y="5" fill="rgba(37,99,235,0.07)" />
+            <use href="#gentle-wave" x="48" y="7" fill="rgba(37,99,235,0.12)" />
+          </g>
+        </svg>
+      </div>
+
     </section>
   );
 }

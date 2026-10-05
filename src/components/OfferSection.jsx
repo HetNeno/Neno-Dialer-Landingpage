@@ -45,17 +45,13 @@ export default function OfferSection({ onOpenDemo }) {
                   COMPLETE 15-MINUTE DEMO CALL
                 </span>
                 
-                {/* Text Reveal Headline */}
-                <h2 className="font-headline text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F172A] tracking-tight leading-tight">
-                  <span className="text-reveal-mask block">
-                    <span className="text-reveal-item">Understand Neno Dialer.</span>
-                  </span>
-                  <span className="text-reveal-mask block">
-                    <span className="text-reveal-item text-[#2563EB]">Complete 15-Min Call.</span>
-                  </span>
+                {/* Headline */}
+                <h2 className="font-headline text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F172A] tracking-tight leading-tight mb-3">
+                  <span className="block">Understand Neno Dialer.</span>
+                  <span className="block text-[#2563EB]">Complete 15-Min Call.</span>
                 </h2>
                 
-                <p className="reveal-on-scroll text-sm sm:text-base text-[#475569] mt-3 leading-relaxed stagger-1">
+                <p className="text-sm sm:text-base text-[#475569] leading-relaxed">
                   Book a dedicated 1-on-1 session where our mentor explains the complete product, shows live calling workflows, and demonstrates how to grow and fast-track your business communications.
                 </p>
               </div>

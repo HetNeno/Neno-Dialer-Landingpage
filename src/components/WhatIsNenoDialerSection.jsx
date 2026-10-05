@@ -42,9 +42,7 @@ export default function WhatIsNenoDialerSection() {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="font-headline text-3xl sm:text-4xl font-bold text-[#0F172A]">
-            <span className="text-reveal-mask">
-              <span className="text-reveal-item">What is Neno Dialer?</span>
-            </span>
+            What is Neno Dialer?
           </h2>
           <p className="reveal-on-scroll text-sm sm:text-base text-[#475569] mt-3 leading-relaxed stagger-1">
             Neno Dialer is a sales calling automation platform designed to boost team manager control, reduce call routing friction, and increase call capacity with zero lag, real-time intelligence, and CRM integration.
