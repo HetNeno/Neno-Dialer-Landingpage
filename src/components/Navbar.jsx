@@ -52,7 +52,7 @@ export default function Navbar({ onOpenDemo }) {
             alt="Neno Dialer Logo"
             className="w-7 h-7 sm:w-9 sm:h-9 object-contain transition-transform duration-200 group-hover:scale-105 shrink-0"
           />
-          <div className="flex flex-col overflow-visible whitespace-nowrap">
+          <div className="hidden sm:flex flex-col overflow-visible whitespace-nowrap">
             <span className="text-[18px] sm:text-[20px] md:text-2xl font-logo font-extrabold tracking-tight text-[#0F172A] group-hover:text-[#2563EB] transition-colors leading-[1.1] pt-0.5">
               Neno Dialer
             </span>

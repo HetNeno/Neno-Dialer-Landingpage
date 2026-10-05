@@ -28,7 +28,7 @@ export default function HeroSection({ onOpenDemo }) {
           </div>
 
           {/* Text Reveal Animated Headline */}
-          <h1 className="font-headline text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#0F172A] leading-[1.08] mb-6">
+          <h1 className="font-headline text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#0F172A] leading-[1.08] mb-6">
             <span className="text-reveal-mask block">
               <span className="text-reveal-item is-visible">More Conversations.</span>
             </span>
