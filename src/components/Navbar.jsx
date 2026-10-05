@@ -70,7 +70,7 @@ export default function Navbar({ onOpenDemo }) {
               <a
                 key={link.id}
                 href={link.href}
-                className={`text-xs font-label transition-colors font-medium hover:text-[#2563EB] ${
+                className={`text-sm font-label transition-colors font-medium hover:text-[#2563EB] ${
                   isActive ? 'text-[#2563EB] font-bold' : 'text-[#475569]'
                 }`}
               >
@@ -109,7 +109,7 @@ export default function Navbar({ onOpenDemo }) {
               key={link.id}
               href={link.href}
               onClick={() => setMobileMenuOpen(false)}
-              className="block py-2 text-sm font-label font-medium text-[#0F172A] hover:text-[#2563EB]"
+              className="block py-2 text-base font-label font-medium text-[#0F172A] hover:text-[#2563EB]"
             >
               {link.name}
             </a>
