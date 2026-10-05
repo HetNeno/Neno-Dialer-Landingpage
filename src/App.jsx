@@ -4,6 +4,8 @@ import HeroSection from './components/HeroSection';
 import OfferSection from './components/OfferSection';
 import DemoVideoSection from './components/DemoVideoSection';
 import WhatIsNenoDialerSection from './components/WhatIsNenoDialerSection';
+import WhyChooseUsSection from './components/WhyChooseUsSection';
+import GlobalNetworkSection from './components/GlobalNetworkSection';
 import ProblemSection from './components/ProblemSection';
 import HelpSection from './components/HelpSection';
 import WhereItFitsSection from './components/WhereItFitsSection';
@@ -35,28 +37,34 @@ export default function App() {
         {/* Section 2: Offer Highlight (Understand Neno Dialer) */}
         <OfferSection onOpenDemo={openDemoModal} />
 
-        {/* Section 3: Product Demo Video (See Neno Dialer In Action) */}
+        {/* Section 3: Why Choose Us */}
+        <WhyChooseUsSection />
+
+        {/* Section 4: Product Demo Video (See Neno Dialer In Action) */}
         <DemoVideoSection onOpenDemo={openDemoModal} />
 
-        {/* Section 4: What is Neno Dialer (5-Step Flow) */}
+        {/* Section 5: What is Neno Dialer (5-Step Flow) */}
         <WhatIsNenoDialerSection />
 
-        {/* Section 5: Why Teams Explore Neno Dialer (Operational Challenges) */}
+        {/* Section 6: Why Teams Explore Neno Dialer (Operational Challenges) */}
         <ProblemSection />
 
-        {/* Section 6: What Neno Dialer Can Help With (6 Capabilities) */}
+        {/* Section 7: What Neno Dialer Can Help With (6 Capabilities) */}
         <HelpSection />
 
-        {/* Section 7: Where Neno Dialer Can Fit (4 Use Cases) */}
+        {/* Section 8: Our Global Network Map */}
+        <GlobalNetworkSection />
+
+        {/* Section 9: Where Neno Dialer Can Fit (4 Use Cases) */}
         <WhereItFitsSection />
 
-        {/* Section 8: Your 15-Minute Neno Dialer Call (3-Step Roadmap) */}
+        {/* Section 10: Your 15-Minute Neno Dialer Call (3-Step Roadmap) */}
         <CallRoadmapSection />
 
-        {/* Section 9: FAQ */}
+        {/* Section 11: FAQ */}
         <FAQSection />
 
-        {/* Section 10: Final CTA */}
+        {/* Section 12: Final CTA */}
         <FinalCTASection onOpenDemo={openDemoModal} />
       </main>
 

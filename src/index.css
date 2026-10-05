@@ -172,3 +172,20 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #2563eb;
 }
+
+/* ====================================================
+   GLOBAL NETWORK MAP UNCROPPED ASPECT RATIO STYLES
+   ==================================================== */
+.global-network-image-wrapper {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.global-network-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+}
