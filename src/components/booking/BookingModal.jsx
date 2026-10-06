@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X } from 'lucide-react';
+import { X, AlertTriangle } from 'lucide-react';
 import BookingForm from './BookingForm';
+import BookingDateTime from './BookingDateTime';
 import BookingSuccess from './BookingSuccess';
 
 export default function BookingModal({ isOpen, onClose }) {
+  const [uiState, setUiState] = useState('FORM'); // FORM, PAYMENT_FAILED, DATETIME, SUCCESS
+  const [paymentData, setPaymentData] = useState(null);
+  const [paymentFailMsg, setPaymentFailMsg] = useState('');
   const [successData, setSuccessData] = useState(null);
+  
   const [isMounted, setIsMounted] = useState(false);
   const [isAnimatingIn, setIsAnimatingIn] = useState(false);
   const [isStaggerVisible, setIsStaggerVisible] = useState(false);
@@ -13,36 +18,23 @@ export default function BookingModal({ isOpen, onClose }) {
   const closeTimerRef = useRef(null);
   const previousFocusRef = useRef(null);
 
-  // Handle open / close lifecycle with smooth 250ms closing exit transition
   useEffect(() => {
     if (isOpen) {
-      // Store currently focused element to return focus on close
       previousFocusRef.current = document.activeElement;
-      
+      setUiState('FORM');
+      setPaymentData(null);
       setSuccessData(null);
+      
       setIsMounted(true);
 
-      // Lock scroll without page jump
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       document.body.style.overflow = 'hidden';
-      if (scrollbarWidth > 0) {
-        document.body.style.paddingRight = `${scrollbarWidth}px`;
-      }
+      if (scrollbarWidth > 0) document.body.style.paddingRight = `${scrollbarWidth}px`;
 
-      // Trigger entrance transition next frame
-      const animTimer = setTimeout(() => {
-        setIsAnimatingIn(true);
-      }, 20);
+      const animTimer = setTimeout(() => setIsAnimatingIn(true), 20);
+      const staggerTimer = setTimeout(() => setIsStaggerVisible(true), 100);
 
-      // Trigger staggered content appearance
-      const staggerTimer = setTimeout(() => {
-        setIsStaggerVisible(true);
-      }, 100);
-
-      return () => {
-        clearTimeout(animTimer);
-        clearTimeout(staggerTimer);
-      };
+      return () => { clearTimeout(animTimer); clearTimeout(staggerTimer); };
     } else if (isMounted) {
       handleCloseAnimation();
     }
@@ -51,25 +43,17 @@ export default function BookingModal({ isOpen, onClose }) {
   const handleCloseAnimation = () => {
     setIsAnimatingIn(false);
     setIsStaggerVisible(false);
-
-    // Wait for 250ms closing animation before unmounting from DOM
     closeTimerRef.current = setTimeout(() => {
       setIsMounted(false);
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
-
-      // Return focus to trigger button
       if (previousFocusRef.current && typeof previousFocusRef.current.focus === 'function') {
         previousFocusRef.current.focus();
       }
-
-      if (onClose) {
-        onClose();
-      }
+      if (onClose) onClose();
     }, 280);
   };
 
-  // Keyboard accessibility: ESC key listener
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape' && isMounted && isAnimatingIn) {
@@ -90,7 +74,18 @@ export default function BookingModal({ isOpen, onClose }) {
   };
 
   const handleFormSuccess = (data) => {
+    setPaymentData(data);
+    setUiState('DATETIME');
+  };
+
+  const handlePaymentFailure = (message) => {
+    setPaymentFailMsg(message);
+    setUiState('PAYMENT_FAILED');
+  };
+
+  const handleDateConfirm = (data) => {
     setSuccessData(data);
+    setUiState('SUCCESS');
   };
 
   return (
@@ -103,8 +98,6 @@ export default function BookingModal({ isOpen, onClose }) {
       }`}
       role="dialog"
       aria-modal="true"
-      aria-labelledby="booking-modal-title"
-      aria-describedby="booking-modal-description"
     >
       <div
         ref={modalRef}
@@ -124,47 +117,77 @@ export default function BookingModal({ isOpen, onClose }) {
               className="w-8 h-8 object-contain bg-white/10 rounded-lg p-0.5"
             />
             <div>
-              <h3 id="booking-modal-title" className="font-logo text-base font-extrabold text-white tracking-tight leading-snug">
+              <h3 className="font-logo text-base font-extrabold text-white tracking-tight leading-snug">
                 Book Your Neno Dialer Demo
               </h3>
             </div>
           </div>
-
           <button
             onClick={handleCloseAnimation}
-            aria-label="Close"
             className="group p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 active:scale-95 transition-all duration-150 cursor-pointer"
           >
             <X className="w-5 h-5 transition-transform duration-200 group-hover:rotate-90" />
           </button>
         </div>
 
-        {/* Modal Content */}
+        {/* Dynamic Modal Content */}
         <div className="p-5 sm:p-6">
-          {successData ? (
+          {uiState === 'SUCCESS' && (
             <BookingSuccess
               bookingDetails={successData}
               onClose={handleCloseAnimation}
             />
-          ) : (
+          )}
+
+          {uiState === 'DATETIME' && (
+            <BookingDateTime 
+              paymentData={paymentData}
+              onConfirm={handleDateConfirm}
+              onCancel={handleCloseAnimation}
+            />
+          )}
+
+          {uiState === 'PAYMENT_FAILED' && (
+            <div className="space-y-5 animate-in fade-in zoom-in-95 duration-300">
+              <div className="bg-[#FEF2F2] p-5 rounded-xl border border-[#DC2626]/20 flex flex-col items-center justify-center text-center">
+                <div className="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center mb-4">
+                  <AlertTriangle className="w-6 h-6 text-[#DC2626]" />
+                </div>
+                <h4 className="text-sm font-bold text-[#991B1B] mb-2 font-headline">Payment Unsuccessful</h4>
+                <p className="text-xs text-[#991B1B]/80 leading-relaxed max-w-sm mb-1">
+                  We couldn't complete your ₹49 payment. No appointment has been booked.
+                </p>
+                {paymentFailMsg && (
+                  <p className="text-[10px] text-[#DC2626] border border-[#DC2626]/10 px-2 py-1 rounded-md bg-white">
+                    {paymentFailMsg}
+                  </p>
+                )}
+              </div>
+              <button
+                onClick={() => setUiState('FORM')}
+                className="btn-press-effect w-full py-3.5 rounded-xl bg-[#2563EB] text-white font-semibold text-xs transition-all duration-200 cursor-pointer font-label"
+              >
+                Try Payment Again
+              </button>
+            </div>
+          )}
+
+          {uiState === 'FORM' && (
             <div className="space-y-4 sm:space-y-5">
-              
-              {/* Supporting Copy */}
               <div className="bg-[#F5F8FC] p-3.5 sm:p-4 rounded-xl border border-[#E2E8F0] modal-stagger-item modal-stagger-delay-2">
-                <p id="booking-modal-description" className="text-xs text-[#475569] leading-relaxed">
+                <p className="text-xs text-[#475569] leading-relaxed">
                   See how Neno Dialer can automate your business calls and help your team handle conversations more efficiently.
                 </p>
               </div>
-
-              {/* Form with Staggered Entrance */}
               <div className="modal-stagger-item modal-stagger-delay-3">
-                <BookingForm onSuccess={handleFormSuccess} />
+                <BookingForm 
+                  onSuccess={handleFormSuccess} 
+                  onPaymentFailure={handlePaymentFailure} 
+                />
               </div>
-
             </div>
           )}
         </div>
-
       </div>
     </div>
   );

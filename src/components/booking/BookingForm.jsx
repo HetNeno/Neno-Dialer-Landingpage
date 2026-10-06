@@ -3,7 +3,7 @@ import { User, Mail, Building, Phone, ArrowRight, Loader2, ShieldCheck, AlertCir
 import FormField from './FormField';
 import { processDemoBooking } from '../../lib/booking';
 
-export default function BookingForm({ onSuccess }) {
+export default function BookingForm({ onSuccess, onPaymentFailure }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -76,11 +76,18 @@ export default function BookingForm({ onSuccess }) {
           message: res.message
         });
       } else {
-        setErrorMessage(res.message || 'Payment could not be completed. Please try again.');
+        // Forward the specific failure to the Modal wrapper state machine
+        if (onPaymentFailure) {
+           onPaymentFailure(res.message || 'Payment could not be completed. Please try again.');
+        } else {
+           setErrorMessage(res.message || 'Payment could not be completed. Please try again.');
+        }
       }
     } catch (err) {
       setIsSubmitting(false);
-      setErrorMessage('Payment could not be completed. Please try again.');
+      const fallbackMsg = 'Payment could not be completed. Please try again.';
+      if (onPaymentFailure) onPaymentFailure(fallbackMsg);
+      else setErrorMessage(fallbackMsg);
     }
   };
 
