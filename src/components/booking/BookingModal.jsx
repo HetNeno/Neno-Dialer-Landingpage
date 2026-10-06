@@ -1,30 +1,60 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, AlertTriangle } from 'lucide-react';
+import { X, AlertTriangle, CheckCircle2, Calendar, ArrowRight } from 'lucide-react';
 import BookingForm from './BookingForm';
 import BookingDateTime from './BookingDateTime';
 import BookingSuccess from './BookingSuccess';
 
+/**
+ * UI State machine:
+ *   FORM            → user fills name/email/phone and pays
+ *   PAYMENT_FAILED  → Razorpay payment failed/cancelled
+ *   DATETIME        → payment verified, calendar open (BOOKING_PENDING in backend)
+ *   BOOKING_PENDING → user left calendar without completing appointment
+ *   SUCCESS         → Microsoft Bookings appointment confirmed
+ */
 export default function BookingModal({ isOpen, onClose }) {
-  const [uiState, setUiState] = useState('FORM'); // FORM, PAYMENT_FAILED, DATETIME, SUCCESS
-  const [paymentData, setPaymentData] = useState(null);
+  const [uiState, setUiState] = useState('FORM');
+  const [paymentData, setPaymentData] = useState(null);   // preserved across DATETIME ↔ BOOKING_PENDING
   const [paymentFailMsg, setPaymentFailMsg] = useState('');
   const [successData, setSuccessData] = useState(null);
-  
+
   const [isMounted, setIsMounted] = useState(false);
   const [isAnimatingIn, setIsAnimatingIn] = useState(false);
   const [isStaggerVisible, setIsStaggerVisible] = useState(false);
-  
+
   const modalRef = useRef(null);
   const closeTimerRef = useRef(null);
   const previousFocusRef = useRef(null);
+  // Track whether a verified payment exists so we never lose it on close
+  const verifiedPaymentRef = useRef(null);
 
   useEffect(() => {
     if (isOpen) {
       previousFocusRef.current = document.activeElement;
-      setUiState('FORM');
-      setPaymentData(null);
-      setSuccessData(null);
-      
+
+      // Check sessionStorage for an uncompleted verified booking session
+      let savedSession = null;
+      try {
+        const stored = sessionStorage.getItem('neno_verified_booking');
+        if (stored) {
+          savedSession = JSON.parse(stored);
+        }
+      } catch (err) {
+        console.warn("Could not read verified booking session:", err);
+      }
+
+      const activePayment = verifiedPaymentRef.current || savedSession;
+
+      if (activePayment) {
+        verifiedPaymentRef.current = activePayment;
+        setPaymentData(activePayment);
+        setUiState('BOOKING_PENDING');
+      } else {
+        setUiState('FORM');
+        setPaymentData(null);
+        setSuccessData(null);
+      }
+
       setIsMounted(true);
 
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
@@ -33,7 +63,6 @@ export default function BookingModal({ isOpen, onClose }) {
 
       const animTimer = setTimeout(() => setIsAnimatingIn(true), 20);
       const staggerTimer = setTimeout(() => setIsStaggerVisible(true), 100);
-
       return () => { clearTimeout(animTimer); clearTimeout(staggerTimer); };
     } else if (isMounted) {
       handleCloseAnimation();
@@ -54,26 +83,50 @@ export default function BookingModal({ isOpen, onClose }) {
     }, 280);
   };
 
+  /**
+   * Smart close: if the user is in DATETIME (calendar open) and tries to
+   * close, we do NOT close the modal — we transition to BOOKING_PENDING so
+   * we can show "Your payment was successful, but your call has not been booked yet."
+   * with the "Continue Booking" button.
+   */
+  const handleSmartClose = () => {
+    if (uiState === 'DATETIME') {
+      setUiState('BOOKING_PENDING');
+    } else if (uiState === 'BOOKING_PENDING') {
+      handleCloseAnimation();
+    } else {
+      handleCloseAnimation();
+    }
+  };
+
+  // ESC key — respects smart close logic
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape' && isMounted && isAnimatingIn) {
         e.preventDefault();
-        handleCloseAnimation();
+        handleSmartClose();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isMounted, isAnimatingIn]);
+  }, [isMounted, isAnimatingIn, uiState]);
 
   if (!isMounted) return null;
 
   const handleBackdropClick = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
-      handleCloseAnimation();
+      handleSmartClose();
     }
   };
 
+  // Payment succeeded — store verified data in ref + sessionStorage so it survives modal close & page refresh
   const handleFormSuccess = (data) => {
+    verifiedPaymentRef.current = data;
+    try {
+      sessionStorage.setItem('neno_verified_booking', JSON.stringify(data));
+    } catch (err) {
+      console.warn("Failed to write booking session to sessionStorage:", err);
+    }
     setPaymentData(data);
     setUiState('DATETIME');
   };
@@ -84,8 +137,20 @@ export default function BookingModal({ isOpen, onClose }) {
   };
 
   const handleDateConfirm = (data) => {
+    // Appointment confirmed — clear the verified payment session (booking complete)
+    verifiedPaymentRef.current = null;
+    try {
+      sessionStorage.removeItem('neno_verified_booking');
+    } catch (err) {
+      console.warn("Failed to clear booking session:", err);
+    }
     setSuccessData(data);
     setUiState('SUCCESS');
+  };
+
+  // User left calendar → BOOKING_PENDING screen "Cancel" button transitions to BOOKING_PENDING UI state
+  const handleCalendarCancel = () => {
+    setUiState('BOOKING_PENDING');
   };
 
   return (
@@ -123,7 +188,7 @@ export default function BookingModal({ isOpen, onClose }) {
             </div>
           </div>
           <button
-            onClick={handleCloseAnimation}
+            onClick={handleSmartClose}
             className="group p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 active:scale-95 transition-all duration-150 cursor-pointer"
           >
             <X className="w-5 h-5 transition-transform duration-200 group-hover:rotate-90" />
@@ -135,7 +200,11 @@ export default function BookingModal({ isOpen, onClose }) {
           {uiState === 'SUCCESS' && (
             <BookingSuccess
               bookingDetails={successData}
-              onClose={handleCloseAnimation}
+              onClose={() => {
+                try { sessionStorage.removeItem('neno_verified_booking'); } catch (e) {}
+                verifiedPaymentRef.current = null;
+                handleCloseAnimation();
+              }}
             />
           )}
 
@@ -143,8 +212,57 @@ export default function BookingModal({ isOpen, onClose }) {
             <BookingDateTime 
               paymentData={paymentData}
               onConfirm={handleDateConfirm}
-              onCancel={handleCloseAnimation}
+              onCancel={handleCalendarCancel}
             />
+          )}
+
+          {uiState === 'BOOKING_PENDING' && (
+            <div className="space-y-5 animate-in fade-in zoom-in-95 duration-300">
+              <div className="bg-[#FFFBEB] p-4 rounded-xl border border-[#F59E0B]/30 flex items-start gap-3">
+                <CheckCircle2 className="w-5 h-5 text-[#D97706] shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="text-sm font-bold text-[#92400E] mb-1 font-headline">
+                    Your payment was successful, but your call has not been booked yet.
+                  </h4>
+                  <p className="text-xs text-[#92400E]/80 leading-relaxed">
+                    Please select a date and time to complete your booking.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-[#F8FAFC] p-4 rounded-xl border border-[#E2E8F0] text-center space-y-1.5">
+                <Calendar className="w-8 h-8 text-[#2563EB] mx-auto" />
+                <p className="text-sm font-bold text-[#0F172A] font-headline">
+                  Complete Your Demo Call Scheduling
+                </p>
+                <p className="text-xs text-[#64748B] leading-relaxed">
+                  No additional payment required. Your ₹49 payment is verified.
+                </p>
+              </div>
+
+              <div className="flex items-center justify-between px-3.5 py-2.5 bg-[#F1F5F9] rounded-lg border border-[#E2E8F0] text-xs">
+                <span className="text-[#475569]">Booking ID</span>
+                <span className="font-mono font-bold text-[#0F172A]">{paymentData?.bookingId}</span>
+              </div>
+
+              <button
+                onClick={() => setUiState('DATETIME')}
+                className="btn-press-effect w-full py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-xs tracking-wide transition-all duration-200 cursor-pointer font-label flex items-center justify-center gap-2"
+              >
+                <Calendar className="w-4 h-4" />
+                <span>Continue Booking</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+
+              <button
+                onClick={() => {
+                  handleCloseAnimation();
+                }}
+                className="w-full py-2.5 rounded-xl border border-[#E2E8F0] text-[#94A3B8] hover:text-[#475569] hover:bg-[#F8FAFC] font-semibold text-xs tracking-wide transition-all duration-200 cursor-pointer font-label"
+              >
+                Close for now
+              </button>
+            </div>
           )}
 
           {uiState === 'PAYMENT_FAILED' && (
@@ -192,3 +310,4 @@ export default function BookingModal({ isOpen, onClose }) {
     </div>
   );
 }
+

@@ -36,7 +36,7 @@ export default async function handler(req, res) {
 
     if (isAuthentic) {
       // 1. Immediately ping PA Webhook with verified status
-      const POWER_AUTOMATE_WEBHOOK_URL = process.env.POWER_AUTOMATE_BOOKING_WEBHOOK_URL || process.env.VITE_POWER_AUTOMATE_BOOKING_URL;
+      const POWER_AUTOMATE_WEBHOOK_URL = process.env.POWER_AUTOMATE_BOOKING_WEBHOOK_URL;
       
       const payload = {
         bookingId: bookingId || `ND-${Date.now()}`,
