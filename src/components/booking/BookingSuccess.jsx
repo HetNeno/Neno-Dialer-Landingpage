@@ -41,7 +41,7 @@ export default function BookingSuccess({ bookingDetails, onClose }) {
           ✓ Booking Confirmed
         </span>
         <h3 className="font-headline text-xl font-bold text-[#0F172A]">
-          Your 15-Minute Demo is Booked!
+          Your 15-Minute Consultation is Booked!
         </h3>
         <p className="text-xs text-[#475569] max-w-sm mx-auto leading-relaxed">
           A Teams meeting invite and confirmation email are on their way to <span className="font-semibold text-[#0F172A]">{email}</span>.
@@ -77,7 +77,7 @@ export default function BookingSuccess({ bookingDetails, onClose }) {
           </div>
           <div className="col-span-2">
             <span className="text-[10px] text-[#64748B] uppercase tracking-wider block mb-0.5">Duration</span>
-            <span className="font-semibold text-[#0F172A]">15 Minutes · Neno Dialer Demo Call</span>
+            <span className="font-semibold text-[#0F172A]">15 Minutes · Neno Dialer Consultation Call</span>
           </div>
         </div>
       </div>

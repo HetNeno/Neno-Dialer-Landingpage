@@ -13,7 +13,7 @@ export default function CallRoadmapSection() {
     },
     {
       num: '02',
-      phase: 'LIVE DEMO',
+      phase: 'LIVE CONSULTATION',
       time: '4-10 MIN',
       title: 'What It Can Do',
       desc: 'Real-time software demonstration showcasing 3x calling velocity, ACD queue drops, supervisor whisper coaching, and live call recordings.',

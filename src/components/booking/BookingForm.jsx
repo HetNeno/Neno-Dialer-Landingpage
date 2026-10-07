@@ -170,7 +170,7 @@ export default function BookingForm({ onSuccess, onPaymentFailure }) {
       {/* Payment Information Summary */}
       <div className="bg-[#F5F8FC] p-4 rounded-xl border border-[#E2E8F0] flex items-center justify-between">
         <div>
-          <div className="text-xs font-bold text-[#0F172A]">Neno Dialer 15-Min Demo Call</div>
+          <div className="text-xs font-bold text-[#0F172A]">Neno Dialer 15-Min Consultation Call</div>
           <div className="text-[11px] text-[#64748B]">Complete Product Mentor Walkthrough</div>
         </div>
         <div className="text-xl font-bold text-[#2563EB] font-headline">
@@ -194,7 +194,7 @@ export default function BookingForm({ onSuccess, onPaymentFailure }) {
             </>
           ) : (
             <>
-              <span>Pay ₹49 &amp; Book Demo Call</span>
+              <span>Pay ₹49 &amp; Book Consultation Call</span>
               <ArrowRight className="w-4 h-4" />
             </>
           )}

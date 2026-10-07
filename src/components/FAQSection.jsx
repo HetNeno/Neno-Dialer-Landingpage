@@ -6,7 +6,7 @@ export default function FAQSection() {
 
   const faqs = [
     {
-      q: 'What is the ₹49 demo call?',
+      q: 'What is the ₹49 consultation call?',
       a: 'The ₹49 call is a dedicated 15-minute 1-on-1 walkthrough session with our product specialist. We use this nominal fee to assign a dedicated consultant to analyze your specific sales workflow and explain the complete product.'
     },
     {
@@ -15,10 +15,10 @@ export default function FAQSection() {
     },
     {
       q: 'How do I book the call?',
-      a: 'Click any "Book Demo for ₹49" button on this page, fill out your contact details, complete the ₹49 payment via Razorpay, and then choose your preferred date and time slot.'
+      a: 'Click any "Book a Consultation — ₹49" button on this page, fill out your contact details, complete the ₹49 payment via Razorpay, and then choose your preferred date and time slot.'
     },
     {
-      q: 'Will I get instant access to a live demo?',
+      q: 'Will I get instant access to a live consultation?',
       a: 'Yes! Your product specialist will walk you through live working software, WebRTC calling modes, ACD routing, and supervisor dashboards right inside the video call.'
     },
     {

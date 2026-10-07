@@ -109,7 +109,7 @@ export default function BookACallSection() {
         {/* Section Intro */}
         <div className="text-center mb-10">
           <h2 className="font-headline text-3xl sm:text-4xl font-bold text-[#0F172A] tracking-tight">
-            Book Your Neno Dialer Demo
+            Book Your Neno Dialer Consultation
           </h2>
           <p className="text-sm sm:text-base text-[#475569] mt-3 leading-relaxed max-w-xl mx-auto">
             See how Neno Dialer can automate your business calls and help your team handle conversations more efficiently.
@@ -128,17 +128,17 @@ export default function BookACallSection() {
 
               <div className="space-y-2">
                 <h3 className="font-headline text-2xl font-bold text-[#0F172A]">
-                  Your Neno Dialer Demo is Confirmed
+                  Your Neno Dialer Consultation is Confirmed
                 </h3>
                 <p className="text-xs sm:text-sm text-[#475569] max-w-md mx-auto leading-relaxed">
-                  Your demo has been successfully booked. A confirmation has been sent to your email.
+                  Your consultation has been successfully booked. A confirmation has been sent to your email.
                 </p>
               </div>
 
               {/* Confirmation Details Card */}
               <div className="bg-[#F5F8FC] p-6 rounded-2xl border border-[#E2E8F0] text-left max-w-md mx-auto space-y-3">
                 <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-3">
-                  <span className="text-xs font-bold text-[#0F172A]">Demo Details</span>
+                  <span className="text-xs font-bold text-[#0F172A]">Consultation Details</span>
                   <span className="text-[11px] font-semibold text-[#059669] bg-[#EEF5FF] px-2.5 py-0.5 rounded-full border border-[#E2E8F0]">
                     Confirmed
                   </span>
@@ -303,8 +303,8 @@ export default function BookACallSection() {
               {/* Payment Summary Box */}
               <div className="bg-[#F5F8FC] p-4 rounded-xl border border-[#E2E8F0] flex items-center justify-between">
                 <div>
-                  <div className="text-xs font-bold text-[#0F172A]">Neno Dialer Demo</div>
-                  <div className="text-[11px] text-[#64748B]">Demo Booking Fee</div>
+                  <div className="text-xs font-bold text-[#0F172A]">Neno Dialer Consultation</div>
+                  <div className="text-[11px] text-[#64748B]">Consultation Booking Fee</div>
                 </div>
                 <div className="text-lg font-bold text-[#0F172A] font-headline">
                   ₹49
@@ -327,7 +327,7 @@ export default function BookACallSection() {
                     </>
                   ) : (
                     <>
-                      <span>Pay ₹49 &amp; Book Demo</span>
+                      <span>Pay ₹49 &amp; Book Consultation</span>
                       <ArrowRight className="w-4 h-4 text-white" />
                     </>
                   )}

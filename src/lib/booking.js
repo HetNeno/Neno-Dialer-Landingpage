@@ -82,7 +82,7 @@ export async function processDemoBooking({
       amount: orderResponse.amount,
       currency: orderResponse.currency || "INR",
       name: 'Neno Technology',
-      description: 'Neno Dialer Demo Booking Fee',
+      description: 'Neno Dialer Consultation Booking Fee',
       image: '/logo.png', // Using the internal logo
       order_id: orderResponse.order_id,
       prefill: {

@@ -22,7 +22,7 @@ export default function FinalCTASection({ onOpenDemo }) {
                 Ready to Understand Neno Dialer?
               </h2>
               <p className="text-sm sm:text-base text-slate-300 mt-3 leading-relaxed max-w-2xl mx-auto">
-                Book a 15-minute introductory call with our demo team and explore how Neno Dialer could transform your sales workflow.
+                Book a 15-minute introductory call with our consultation team and explore how Neno Dialer could transform your sales workflow.
               </p>
             </div>
 
@@ -32,7 +32,7 @@ export default function FinalCTASection({ onOpenDemo }) {
                 onClick={onOpenDemo}
                 className="btn-press-effect active:scale-97 w-full sm:w-auto px-9 py-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] text-white font-semibold text-sm tracking-wide transition-all shadow-lg hover:shadow-xl inline-flex items-center justify-center gap-2.5 cursor-pointer"
               >
-                <span>Book Demo • ₹49</span>
+                <span>Book a Consultation — ₹49</span>
                 <ArrowRight className="w-4 h-4 text-white" />
               </button>
             </div>

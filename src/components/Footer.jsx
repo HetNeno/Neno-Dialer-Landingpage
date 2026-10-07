@@ -63,7 +63,7 @@ export default function Footer({ onOpenDemo }) {
               onClick={onOpenDemo}
               className="px-5 py-2.5 rounded-lg bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-xs transition-colors shadow-xs inline-flex items-center gap-2 cursor-pointer"
             >
-              <span>Book Demo for ₹49</span>
+              <span>Book a Consultation — ₹49</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>

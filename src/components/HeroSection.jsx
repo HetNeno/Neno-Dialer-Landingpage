@@ -85,7 +85,7 @@ export default function HeroSection({ onOpenDemo }) {
               onClick={onOpenDemo}
               className="btn-press-effect active:scale-97 w-full sm:w-auto px-8 py-4 rounded-xl bg-[#2563EB] text-white font-semibold text-sm tracking-wide hover:bg-[#1D4ED8] active:bg-[#1E40AF] transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2.5 cursor-pointer"
             >
-              <span>Book a Demo • ₹49</span>
+              <span>Book a Consultation — ₹49</span>
               <ArrowRight className="w-4 h-4 text-white" />
             </button>
 
@@ -94,7 +94,7 @@ export default function HeroSection({ onOpenDemo }) {
               className="w-full sm:w-auto px-7 py-4 rounded-xl bg-[#FFFFFF] border border-[#E2E8F0] hover:bg-[#F5F8FC] text-[#0F172A] font-semibold text-sm transition-all flex items-center justify-center gap-2 shadow-xs hover:-translate-y-0.5 cursor-pointer"
             >
               <Play className="w-4 h-4 text-[#2563EB] fill-[#2563EB]" />
-              <span>Watch Product Demo</span>
+              <span>Watch Product Overview</span>
             </button>
           </div>
 

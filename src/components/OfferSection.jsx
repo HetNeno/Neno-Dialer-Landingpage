@@ -42,7 +42,7 @@ export default function OfferSection({ onOpenDemo }) {
             <div className="lg:col-span-5 space-y-6">
               <div>
                 <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#EEF5FF] text-[#2563EB] text-[11px] font-bold tracking-wider uppercase mb-4 border border-[#DBEAFE]">
-                  COMPLETE 15-MINUTE DEMO CALL
+                  COMPLETE 15-MINUTE CONSULTATION CALL
                 </span>
                 
                 {/* Headline */}
@@ -72,7 +72,7 @@ export default function OfferSection({ onOpenDemo }) {
                   onClick={onOpenDemo}
                   className="btn-press-effect active:scale-97 w-full py-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] text-white font-semibold text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <span>Book Demo for ₹49</span>
+                  <span>Book a Consultation — ₹49</span>
                   <ArrowRight className="w-4 h-4 text-white" />
                 </button>
               </div>
@@ -86,7 +86,7 @@ export default function OfferSection({ onOpenDemo }) {
                   What our mentor covers in the 15-minute call:
                 </h3>
                 <span className="text-[11px] font-mono font-bold text-[#2563EB] bg-[#EEF5FF] px-2.5 py-0.5 rounded border border-[#DBEAFE]">
-                  100% Live Demo
+                  100% Live Overview
                 </span>
               </div>
 

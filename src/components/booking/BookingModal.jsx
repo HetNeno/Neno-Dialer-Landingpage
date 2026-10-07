@@ -183,7 +183,7 @@ export default function BookingModal({ isOpen, onClose }) {
             />
             <div>
               <h3 className="font-logo text-base font-extrabold text-white tracking-tight leading-snug">
-                Book Your Neno Dialer Demo
+                Book Your Neno Dialer Consultation
               </h3>
             </div>
           </div>
@@ -233,7 +233,7 @@ export default function BookingModal({ isOpen, onClose }) {
               <div className="bg-[#F8FAFC] p-4 rounded-xl border border-[#E2E8F0] text-center space-y-1.5">
                 <Calendar className="w-8 h-8 text-[#2563EB] mx-auto" />
                 <p className="text-sm font-bold text-[#0F172A] font-headline">
-                  Complete Your Demo Call Scheduling
+                  Complete Your Consultation Call Scheduling
                 </p>
                 <p className="text-xs text-[#64748B] leading-relaxed">
                   No additional payment required. Your ₹49 payment is verified.

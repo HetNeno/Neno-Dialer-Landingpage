@@ -49,7 +49,7 @@ export default function BookingDateTime({ paymentData, onCancel }) {
           <div className="bg-[#F8FAFC] px-3.5 py-2 border-b border-[#E2E8F0] flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Calendar className="w-3.5 h-3.5 text-[#2563EB]" />
-              <span className="text-[11px] font-semibold text-[#0F172A]">Neno Dialer Demo Call — 15 Minutes</span>
+              <span className="text-[11px] font-semibold text-[#0F172A]">Neno Dialer Consultation Call — 15 Minutes</span>
             </div>
             <a
               href={bookingUrl}
@@ -62,7 +62,7 @@ export default function BookingDateTime({ paymentData, onCancel }) {
           </div>
           <iframe
             src={bookingUrl}
-            title="Neno Dialer Demo Call Booking"
+            title="Neno Dialer Consultation Call Booking"
             width="100%"
             height="520"
             frameBorder="0"
@@ -92,7 +92,7 @@ export default function BookingDateTime({ paymentData, onCancel }) {
               </p>
             </div>
             <p className="text-[10px] text-[#991B1B] pl-5 leading-relaxed">
-              Set this in your <code className="bg-[#FCA5A5]/30 px-1 rounded">.env</code> and Vercel dashboard to your Microsoft Bookings scheduling page URL for the <strong>Neno Dialer Demo Call</strong> service.
+              Set this in your <code className="bg-[#FCA5A5]/30 px-1 rounded">.env</code> and Vercel dashboard to your Microsoft Bookings scheduling page URL for the <strong>Neno Dialer Consultation Call</strong> service.
             </p>
           </div>
           <p className="text-[10px] text-[#64748B]">

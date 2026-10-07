@@ -36,7 +36,7 @@ export default function DemoVideoSection({ onOpenDemo }) {
               </div>
 
               <span className="relative z-10 text-xs font-mono tracking-widest text-white/80 uppercase font-bold group-hover:text-white transition-colors bg-white/10 px-4 py-1.5 rounded-full border border-white/10">
-                ► Watch Product Demo
+                ► Watch Product Overview Video
               </span>
 
               {/* Simulated UI background graphics */}
