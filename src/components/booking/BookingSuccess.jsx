@@ -21,6 +21,13 @@ export default function BookingSuccess({ bookingDetails, onClose }) {
   const formatTime = (t) => {
     if (!t) return '—';
     try {
+      if (t.includes('T')) {
+        return new Date(t).toLocaleTimeString('en-IN', {
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true
+        });
+      }
       const [h, m] = t.split(':');
       const date = new Date();
       date.setHours(parseInt(h), parseInt(m));
@@ -100,4 +107,3 @@ export default function BookingSuccess({ bookingDetails, onClose }) {
     </div>
   );
 }
-

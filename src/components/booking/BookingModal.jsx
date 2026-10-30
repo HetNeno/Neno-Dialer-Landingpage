@@ -10,7 +10,7 @@ import BookingSuccess from './BookingSuccess';
  *   PAYMENT_FAILED  → Razorpay payment failed/cancelled
  *   DATETIME        → payment verified, calendar open (BOOKING_PENDING in backend)
  *   BOOKING_PENDING → user left calendar without completing appointment
- *   SUCCESS         → Microsoft Bookings appointment confirmed
+ *   SUCCESS         → Calendly appointment confirmed
  */
 export default function BookingModal({ isOpen, onClose }) {
   const [uiState, setUiState] = useState('FORM');
@@ -166,7 +166,7 @@ export default function BookingModal({ isOpen, onClose }) {
     >
       <div
         ref={modalRef}
-        className={`relative w-full max-w-xl bg-[#FFFFFF] rounded-2xl sm:rounded-3xl modal-glow-shadow border border-[#E2E8F0] overflow-hidden my-auto transition-all duration-350 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`relative w-full max-w-2xl max-h-[92vh] overflow-y-auto bg-white/75 backdrop-blur-2xl rounded-3xl modal-glow-shadow border border-white/80 my-auto transition-all duration-350 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           isAnimatingIn
             ? 'opacity-100 translate-y-0 scale-100'
             : 'opacity-0 translate-y-10 sm:translate-y-6 scale-[0.97] sm:scale-[0.96]'
@@ -174,29 +174,34 @@ export default function BookingModal({ isOpen, onClose }) {
       >
         
         {/* Header Bar */}
-        <div className="bg-[#0F172A] text-white px-5 sm:px-6 py-4 flex items-center justify-between border-b border-[#E2E8F0]/10 modal-stagger-item modal-stagger-delay-1">
+        <div className="sticky top-0 z-10 bg-white/70 backdrop-blur-xl text-[#0F172A] px-5 sm:px-7 py-4 flex items-center justify-between border-b border-white/80 modal-stagger-item modal-stagger-delay-1">
           <div className="flex items-center gap-3">
-            <img
-              src="/logo.png"
-              alt="Neno Dialer Logo"
-              className="w-8 h-8 object-contain bg-white/10 rounded-lg p-0.5"
-            />
+            <div className="w-12 h-12 shrink-0 rounded-2xl bg-white/90 border border-white shadow-[0_8px_24px_rgba(37,99,235,0.16)] flex items-center justify-center p-1.5">
+              <img
+                src="/logo.png"
+                alt="Neno Dialer Logo"
+                className="w-full h-full object-contain"
+              />
+            </div>
             <div>
-              <h3 className="font-logo text-base font-extrabold text-white tracking-tight leading-snug">
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#2563EB] mb-0.5">
+                Neno Dialer
+              </p>
+              <h3 className="font-logo text-lg font-extrabold text-[#0F172A] tracking-tight leading-snug">
                 Book Your Neno Dialer Consultation
               </h3>
             </div>
           </div>
           <button
             onClick={handleSmartClose}
-            className="group p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 active:scale-95 transition-all duration-150 cursor-pointer"
+            className="group p-2 rounded-xl text-[#64748B] hover:text-[#0F172A] hover:bg-white/80 active:scale-95 transition-all duration-150 cursor-pointer"
           >
             <X className="w-5 h-5 transition-transform duration-200 group-hover:rotate-90" />
           </button>
         </div>
 
         {/* Dynamic Modal Content */}
-        <div className="p-5 sm:p-6">
+        <div className="p-4 sm:p-6">
           {uiState === 'SUCCESS' && (
             <BookingSuccess
               bookingDetails={successData}
@@ -310,4 +315,3 @@ export default function BookingModal({ isOpen, onClose }) {
     </div>
   );
 }
-

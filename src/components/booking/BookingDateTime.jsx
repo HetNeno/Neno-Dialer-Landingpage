@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ShieldCheck, AlertCircle, ExternalLink, Calendar } from 'lucide-react';
 
-export default function BookingDateTime({ paymentData, onCancel }) {
+export default function BookingDateTime({ paymentData, onConfirm, onCancel }) {
+  const [confirmationError, setConfirmationError] = useState('');
+  const [isConfirming, setIsConfirming] = useState(false);
+
   // Read Calendly page URL (or legacy Microsoft Bookings URL as fallback) from environment.
   const rawCalendarUrl = 
     import.meta.env.VITE_CALENDLY_URL || 
@@ -36,17 +39,73 @@ export default function BookingDateTime({ paymentData, onCancel }) {
     }
   };
 
-  const bookingUrl = buildBookingUrl();
+  const bookingUrl = useMemo(buildBookingUrl, [paymentData, rawCalendarUrl]);
   const isCalendly = rawCalendarUrl.toLowerCase().includes('calendly');
 
+  useEffect(() => {
+    if (!isCalendly || !onConfirm) return undefined;
+
+    const handleCalendlyMessage = async (event) => {
+      if (event.origin !== 'https://calendly.com' || event.data?.event !== 'calendly.event_scheduled') {
+        return;
+      }
+
+      if (isConfirming) return;
+      setIsConfirming(true);
+      setConfirmationError('');
+
+      try {
+        const response = await fetch('/api/confirm-booking', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            payment_token: paymentData?.payment_token,
+            booking_data: {
+              bookingId: paymentData?.bookingId,
+              full_name: paymentData?.full_name,
+              company_name: paymentData?.company_name,
+              email: paymentData?.email,
+              phone: paymentData?.phone,
+              appointmentDate: event.data?.payload?.event?.start_time || null,
+              appointmentStartTime: event.data?.payload?.event?.start_time || null,
+              appointmentEndTime: event.data?.payload?.event?.end_time || null,
+              duration_mins: 15
+            }
+          })
+        });
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+          throw new Error(result.message || 'Could not confirm the appointment.');
+        }
+
+        onConfirm({
+          ...paymentData,
+          appointmentDate: event.data?.payload?.event?.start_time,
+          appointmentStartTime: event.data?.payload?.event?.start_time,
+          appointmentEndTime: event.data?.payload?.event?.end_time
+        });
+      } catch (error) {
+        console.error('Calendly appointment confirmation failed:', error);
+        setConfirmationError('Your appointment was scheduled, but we could not finish confirmation. Please contact support with your booking ID.');
+        setIsConfirming(false);
+      }
+    };
+
+    window.addEventListener('message', handleCalendlyMessage);
+    return () => window.removeEventListener('message', handleCalendlyMessage);
+  }, [isCalendly, onConfirm, paymentData, isConfirming]);
+
   return (
-    <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-500">
 
       {/* Payment Verified Banner */}
-      <div className="bg-[#ECFDF5] p-3 rounded-xl border border-[#059669]/20 flex items-start gap-2.5">
-        <ShieldCheck className="w-4 h-4 mt-0.5 text-[#059669] shrink-0" />
+      <div className="bg-white/65 backdrop-blur-xl p-4 rounded-2xl border border-white/90 shadow-[0_10px_30px_rgba(15,23,42,0.06)] flex items-start gap-3">
+        <div className="w-9 h-9 rounded-xl bg-[#ECFDF5] border border-[#059669]/15 flex items-center justify-center shrink-0">
+          <ShieldCheck className="w-4 h-4 text-[#059669]" />
+        </div>
         <div>
-          <h4 className="text-[11px] font-bold text-[#065F46] uppercase tracking-wider mb-0.5">
+          <h4 className="text-[11px] font-bold text-[#065F46] uppercase tracking-wider mb-1">
             Payment Verified — Select Your Consultation Slot
           </h4>
           <p className="text-xs text-[#064E3B]/80 leading-snug">
@@ -58,8 +117,8 @@ export default function BookingDateTime({ paymentData, onCancel }) {
 
       {isConfigured ? (
         /* Real Calendly / Calendar iframe */
-        <div className="rounded-xl border border-[#E2E8F0] overflow-hidden bg-white shadow-sm">
-          <div className="bg-[#F8FAFC] px-3.5 py-2 border-b border-[#E2E8F0] flex items-center justify-between">
+        <div className="rounded-2xl border border-white/90 overflow-hidden bg-white/70 backdrop-blur-xl shadow-[0_12px_35px_rgba(15,23,42,0.08)]">
+          <div className="bg-white/55 px-4 py-3 border-b border-white/80 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Calendar className="w-3.5 h-3.5 text-[#2563EB]" />
               <span className="text-[11px] font-semibold text-[#0F172A]">
@@ -82,7 +141,7 @@ export default function BookingDateTime({ paymentData, onCancel }) {
             height="560"
             frameBorder="0"
             scrolling="yes"
-            style={{ display: 'block', minHeight: '560px' }}
+            style={{ display: 'block', minHeight: '560px', background: 'rgba(255,255,255,0.5)' }}
             allow="camera; microphone; fullscreen"
           />
         </div>
@@ -116,6 +175,18 @@ export default function BookingDateTime({ paymentData, onCancel }) {
         </div>
       )}
 
+      {isConfirming && (
+        <p className="text-center text-xs text-[#2563EB]">
+          Confirming your appointment...
+        </p>
+      )}
+
+      {confirmationError && (
+        <p className="rounded-lg border border-[#F59E0B]/30 bg-[#FFFBEB] p-3 text-xs leading-relaxed text-[#92400E]">
+          {confirmationError}
+        </p>
+      )}
+
       <div className="pt-1">
         <button
           onClick={onCancel}
@@ -128,5 +199,3 @@ export default function BookingDateTime({ paymentData, onCancel }) {
     </div>
   );
 }
-
-
