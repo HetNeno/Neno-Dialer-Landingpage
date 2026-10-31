@@ -3,6 +3,9 @@ import { X, AlertTriangle, CheckCircle2, Calendar, ArrowRight } from 'lucide-rea
 import BookingForm from './BookingForm';
 import BookingDateTime from './BookingDateTime';
 import BookingSuccess from './BookingSuccess';
+import { BOOKING_STORAGE_KEY } from '../../lib/booking';
+
+const BOOKING_SESSION_MAX_AGE = 30 * 60 * 1000;
 
 /**
  * UI State machine:
@@ -32,23 +35,29 @@ export default function BookingModal({ isOpen, onClose }) {
     if (isOpen) {
       previousFocusRef.current = document.activeElement;
 
-      // Check sessionStorage for an uncompleted verified booking session
+      // Keep payment recovery across a closed tab, but never restore an old payment.
       let savedSession = null;
       try {
-        const stored = sessionStorage.getItem('neno_verified_booking');
+        const stored = localStorage.getItem(BOOKING_STORAGE_KEY);
         if (stored) {
-          savedSession = JSON.parse(stored);
+          const parsed = JSON.parse(stored);
+          if (parsed?.savedAt && Date.now() - parsed.savedAt <= BOOKING_SESSION_MAX_AGE) {
+            savedSession = parsed;
+          } else {
+            localStorage.removeItem(BOOKING_STORAGE_KEY);
+          }
         }
       } catch (err) {
-        console.warn("Could not read verified booking session:", err);
+        console.warn('Could not read verified booking session:', err);
       }
 
       const activePayment = verifiedPaymentRef.current || savedSession;
 
       if (activePayment) {
         verifiedPaymentRef.current = activePayment;
-        setPaymentData(activePayment);
-        setUiState('BOOKING_PENDING');
+        setPaymentData(activePayment.paymentData || activePayment);
+        setSuccessData(activePayment.successData || null);
+        setUiState(activePayment.status === 'COMPLETED' ? 'SUCCESS' : 'BOOKING_PENDING');
       } else {
         setUiState('FORM');
         setPaymentData(null);
@@ -68,6 +77,26 @@ export default function BookingModal({ isOpen, onClose }) {
       handleCloseAnimation();
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    const handleStorage = (event) => {
+      if (event.key !== BOOKING_STORAGE_KEY || !event.newValue) return;
+      try {
+        const session = JSON.parse(event.newValue);
+        if (session.status === 'COMPLETED') {
+          setSuccessData(session.successData);
+          setUiState('SUCCESS');
+        } else if (session.status === 'PENDING') {
+          setPaymentData(session.paymentData);
+          setUiState('BOOKING_PENDING');
+        }
+      } catch (err) {
+        console.warn('Could not sync booking session:', err);
+      }
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
 
   const handleCloseAnimation = () => {
     setIsAnimatingIn(false);
@@ -119,13 +148,17 @@ export default function BookingModal({ isOpen, onClose }) {
     }
   };
 
-  // Payment succeeded — store verified data in ref + sessionStorage so it survives modal close & page refresh
+  // Payment succeeded — store verified data so it survives modal close and tab reopening.
   const handleFormSuccess = (data) => {
     verifiedPaymentRef.current = data;
     try {
-      sessionStorage.setItem('neno_verified_booking', JSON.stringify(data));
+      localStorage.setItem(BOOKING_STORAGE_KEY, JSON.stringify({
+        status: 'PENDING',
+        savedAt: Date.now(),
+        paymentData: data
+      }));
     } catch (err) {
-      console.warn("Failed to write booking session to sessionStorage:", err);
+      console.warn('Failed to write booking session to localStorage:', err);
     }
     setPaymentData(data);
     setUiState('DATETIME');
@@ -137,12 +170,17 @@ export default function BookingModal({ isOpen, onClose }) {
   };
 
   const handleDateConfirm = (data) => {
-    // Appointment confirmed — clear the verified payment session (booking complete)
+    // Keep the completed result briefly so a closed/reopened tab shows the confirmation
+    // instead of allowing the same payment session to start another booking.
     verifiedPaymentRef.current = null;
     try {
-      sessionStorage.removeItem('neno_verified_booking');
+      localStorage.setItem(BOOKING_STORAGE_KEY, JSON.stringify({
+        status: 'COMPLETED',
+        savedAt: Date.now(),
+        successData: data
+      }));
     } catch (err) {
-      console.warn("Failed to clear booking session:", err);
+      console.warn('Could not persist completed booking session:', err);
     }
     setSuccessData(data);
     setUiState('SUCCESS');
@@ -206,7 +244,11 @@ export default function BookingModal({ isOpen, onClose }) {
             <BookingSuccess
               bookingDetails={successData}
               onClose={() => {
-                try { sessionStorage.removeItem('neno_verified_booking'); } catch (e) {}
+                try {
+                  localStorage.removeItem(BOOKING_STORAGE_KEY);
+                } catch (err) {
+                  console.warn('Could not clear completed booking session:', err);
+                }
                 verifiedPaymentRef.current = null;
                 handleCloseAnimation();
               }}

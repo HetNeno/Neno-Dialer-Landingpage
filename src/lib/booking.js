@@ -23,6 +23,8 @@ export function generateBookingId() {
   return `ND-${today}-${random}`;
 }
 
+export const BOOKING_STORAGE_KEY = 'neno_booking_session';
+
 export async function processDemoBooking({
   full_name,
   company_name,
@@ -63,7 +65,7 @@ export async function processDemoBooking({
     const res = await fetch('/api/create-order', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ full_name, email, phone })
+      body: JSON.stringify({ full_name, email, phone, booking_id: generatedBookingId })
     });
     orderResponse = await res.json();
     if (!res.ok) throw new Error(orderResponse.message || 'Failed order response');

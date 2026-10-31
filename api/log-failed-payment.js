@@ -13,7 +13,10 @@ export default async function handler(req, res) {
     razorpay_payment_id
   } = req.body;
 
-  const POWER_AUTOMATE_WEBHOOK_URL = process.env.POWER_AUTOMATE_BOOKING_WEBHOOK_URL || process.env.VITE_POWER_AUTOMATE_BOOKING_URL;
+  const BOOKING_WEBHOOK_URL =
+    process.env.ACTIVEPIECES_BOOKING_WEBHOOK_URL ||
+    process.env.POWER_AUTOMATE_BOOKING_WEBHOOK_URL ||
+    process.env.VITE_POWER_AUTOMATE_BOOKING_URL;
 
   // Exact 18-key normalized payload for Power Automate (FAILED STATE)
   const payload = {
@@ -37,9 +40,9 @@ export default async function handler(req, res) {
     updatedAt: new Date().toISOString()
   };
 
-  if (POWER_AUTOMATE_WEBHOOK_URL) {
+  if (BOOKING_WEBHOOK_URL) {
     try {
-      await fetch(POWER_AUTOMATE_WEBHOOK_URL, {
+      await fetch(BOOKING_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -48,7 +51,7 @@ export default async function handler(req, res) {
       console.error("Failed to push failure log to Power Automate:", err);
     }
   } else {
-    console.warn("No POWER_AUTOMATE_BOOKING_WEBHOOK_URL found. Log not forwarded.");
+    console.warn("No booking webhook URL found. Log not forwarded.");
     console.log("Failed Payment Payload Details:", payload);
   }
 

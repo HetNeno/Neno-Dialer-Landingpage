@@ -36,7 +36,9 @@ export default async function handler(req, res) {
 
     if (isAuthentic) {
       // 1. Immediately ping PA Webhook with verified status
-      const POWER_AUTOMATE_WEBHOOK_URL = process.env.POWER_AUTOMATE_BOOKING_WEBHOOK_URL;
+      const BOOKING_WEBHOOK_URL =
+        process.env.ACTIVEPIECES_BOOKING_WEBHOOK_URL ||
+        process.env.POWER_AUTOMATE_BOOKING_WEBHOOK_URL;
       
       const payload = {
         bookingId: bookingId || `ND-${Date.now()}`,
@@ -59,9 +61,9 @@ export default async function handler(req, res) {
         updatedAt: new Date().toISOString()
       };
 
-      if (POWER_AUTOMATE_WEBHOOK_URL) {
+      if (BOOKING_WEBHOOK_URL) {
         try {
-          await fetch(POWER_AUTOMATE_WEBHOOK_URL, {
+          await fetch(BOOKING_WEBHOOK_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -74,6 +76,8 @@ export default async function handler(req, res) {
       // 2. Issue the JWT proof of payment for the browser
       const tokenPayload = Buffer.from(JSON.stringify({ 
         order_id: razorpay_order_id, 
+        payment_id: razorpay_payment_id,
+        booking_id: bookingId || null,
         verified: true,
         exp: Date.now() + (1000 * 60 * 30) // Valid for 30 minutes to conclude scheduling
       })).toString('base64');

@@ -35,6 +35,10 @@ export default async function handler(req, res) {
       return res.status(403).json({ message: 'Payment verification session expired. Please contact support.' });
     }
 
+    if (!payload.verified || !payload.order_id || payload.booking_id !== booking_data.bookingId) {
+      return res.status(403).json({ message: 'Payment proof does not match this booking.' });
+    }
+
     // 2. Validate Secure Booking Data constraints
     const { 
       bookingId,
@@ -56,7 +60,10 @@ export default async function handler(req, res) {
     }
 
     // 3. Assemble Excel webhook schema exactly as requested
-    const POWER_AUTOMATE_WEBHOOK_URL = process.env.POWER_AUTOMATE_BOOKING_WEBHOOK_URL || process.env.VITE_POWER_AUTOMATE_BOOKING_URL;
+    const BOOKING_WEBHOOK_URL =
+      process.env.ACTIVEPIECES_BOOKING_WEBHOOK_URL ||
+      process.env.POWER_AUTOMATE_BOOKING_WEBHOOK_URL ||
+      process.env.VITE_POWER_AUTOMATE_BOOKING_URL;
     let automationSuccess = true;
 
     // Strict mapping to the Power Automate Excel Table API payload format
@@ -81,9 +88,9 @@ export default async function handler(req, res) {
       updatedAt: new Date().toISOString()
     };
 
-    if (POWER_AUTOMATE_WEBHOOK_URL) {
+    if (BOOKING_WEBHOOK_URL) {
       try {
-        const automatorRes = await fetch(POWER_AUTOMATE_WEBHOOK_URL, {
+        const automatorRes = await fetch(BOOKING_WEBHOOK_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(paPayload)

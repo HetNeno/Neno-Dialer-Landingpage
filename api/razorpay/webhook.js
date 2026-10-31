@@ -71,7 +71,9 @@ export default async function handler(req, res) {
   const email     = paymentEntity.email        || 'Unknown';
   const phone     = paymentEntity.contact      || 'Unknown';
 
-  const POWER_AUTOMATE_WEBHOOK_URL = process.env.POWER_AUTOMATE_BOOKING_WEBHOOK_URL;
+  const BOOKING_WEBHOOK_URL =
+    process.env.ACTIVEPIECES_BOOKING_WEBHOOK_URL ||
+    process.env.POWER_AUTOMATE_BOOKING_WEBHOOK_URL;
 
   // -----------------------------------------------------------------
   // 3. Handle each supported event
@@ -79,7 +81,7 @@ export default async function handler(req, res) {
   if (eventType === 'payment.captured') {
     console.log(`[webhook] payment.captured — Order: ${razorpayOrderId}, Payment: ${razorpayPaymentId}`);
 
-    if (POWER_AUTOMATE_WEBHOOK_URL) {
+    if (BOOKING_WEBHOOK_URL) {
       const payload = {
         bookingId,
         name,
@@ -102,7 +104,7 @@ export default async function handler(req, res) {
       };
 
       try {
-        await fetch(POWER_AUTOMATE_WEBHOOK_URL, {
+        await fetch(BOOKING_WEBHOOK_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
@@ -119,7 +121,7 @@ export default async function handler(req, res) {
   if (eventType === 'payment.failed') {
     console.log(`[webhook] payment.failed — Order: ${razorpayOrderId}, Reason: ${errorDescription}`);
 
-    if (POWER_AUTOMATE_WEBHOOK_URL) {
+    if (BOOKING_WEBHOOK_URL) {
       const payload = {
         bookingId,
         name,
@@ -142,7 +144,7 @@ export default async function handler(req, res) {
       };
 
       try {
-        await fetch(POWER_AUTOMATE_WEBHOOK_URL, {
+        await fetch(BOOKING_WEBHOOK_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)

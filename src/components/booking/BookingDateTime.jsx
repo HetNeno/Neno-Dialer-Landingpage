@@ -1,9 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ShieldCheck, AlertCircle, ExternalLink, Calendar } from 'lucide-react';
 
 export default function BookingDateTime({ paymentData, onConfirm, onCancel }) {
   const [confirmationError, setConfirmationError] = useState('');
   const [isConfirming, setIsConfirming] = useState(false);
+  const confirmationStartedRef = useRef(false);
 
   // Read Calendly page URL (or legacy Microsoft Bookings URL as fallback) from environment.
   const rawCalendarUrl = 
@@ -50,7 +51,8 @@ export default function BookingDateTime({ paymentData, onConfirm, onCancel }) {
         return;
       }
 
-      if (isConfirming) return;
+      if (confirmationStartedRef.current) return;
+      confirmationStartedRef.current = true;
       setIsConfirming(true);
       setConfirmationError('');
 
@@ -89,12 +91,13 @@ export default function BookingDateTime({ paymentData, onConfirm, onCancel }) {
         console.error('Calendly appointment confirmation failed:', error);
         setConfirmationError('Your appointment was scheduled, but we could not finish confirmation. Please contact support with your booking ID.');
         setIsConfirming(false);
+        confirmationStartedRef.current = false;
       }
     };
 
     window.addEventListener('message', handleCalendlyMessage);
     return () => window.removeEventListener('message', handleCalendlyMessage);
-  }, [isCalendly, onConfirm, paymentData, isConfirming]);
+  }, [isCalendly, onConfirm, paymentData]);
 
   return (
     <div className="space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-500">

@@ -14,6 +14,8 @@ export default async function handler(req, res) {
     return res.status(500).json({ message: 'Server configuration error' });
   }
 
+  const { full_name, email, phone, booking_id } = req.body || {};
+
   try {
     const rzp = new Razorpay({
       key_id: key_id,
@@ -28,6 +30,12 @@ export default async function handler(req, res) {
       amount: 4900,
       currency: "INR",
       receipt: receiptId,
+      notes: {
+        booking_id: booking_id || '',
+        name: full_name || '',
+        email: email || '',
+        contact: phone || ''
+      }
     };
 
     const order = await rzp.orders.create(options);
